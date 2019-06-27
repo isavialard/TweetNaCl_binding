@@ -10,7 +10,7 @@ The package tweetnacl_h.ads is a low level binding used as an interface between 
 
 The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads. It takes advantage of strong typing, ghost functions and Pre&Post conditions  and gnat and spark ....
 
-##Description of the programs
+## Description of the programs
 
 ### To encrypt and decrypt
 
@@ -32,6 +32,6 @@ Crypto_sign_keypair generates a secret key sk and the corresponding public key p
 
 The other programs declared in tweetnaclhl.ads are the basic components of these six main procedures. If you want to use these other programs in a different way than tweetnacl.c, then the pre- and post-conditions in tweetnaclhl.ads could be an hindrance. That could mean that what you are trying to do is unsafe, but if you want to keep trying you should consider calling directly the functions declared in the low-level binding tweetnacl_h.ads.
 
-##Test
+## Test
 
 Test.adb uses the six main procedure of tweetnacl to generate two pairs of keys: one pair to sign and authentify, the other to encrypt and decrypt a message. Then it uses these keys to sign the message, encrypt it, decrypt it, check the signature and return the initial message.
