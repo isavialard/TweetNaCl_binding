@@ -1,0 +1,7 @@
+project Tweetnacl is
+    for Languages use ("Ada","C");
+    for Source_Dirs use ("common");
+    for Object_Dir use "obj";
+
+    for Main use ("test2.adb");
+end Tweetnacl;
