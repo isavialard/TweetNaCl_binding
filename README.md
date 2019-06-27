@@ -30,6 +30,8 @@ Crypto_sign_keypair generates a secret key sk and the corresponding public key p
 
 ### Other programs
 
+Randombytes can be used to randomly generate a Key or a Nonce.
+
 The other programs declared in tweetnaclhl.ads are the basic components of these six main procedures. If you want to use these other programs in a different way than tweetnacl.c, then the pre- and post-conditions in tweetnaclhl.ads could be an hindrance. That could mean that what you are trying to do is unsafe, but if you want to keep trying you should consider calling directly the functions declared in the low-level binding tweetnacl_h.ads.
 
 ## Test
