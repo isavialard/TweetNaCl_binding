@@ -8,7 +8,7 @@ The package tweetnacl_h.ads is a low level binding used as an interface between 
 
 ## High level binding
 
-The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads, which comply with the limitations enforced by SPARK. Thus one can use the SPARK tools for formal verification. For instance, they can check if the programs declared in tweetnaclhl.ads are used as they are meant to be, with the right arguments and in the right order.
+The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads, which comply with the limitations enforced by SPARK. Thus one can use the SPARK tools for formal verification. They can check if the programs declared in tweetnaclhl.ads are used as they are meant to be, with the right arguments and in the right order.
 
 ## Description of the programs
 
