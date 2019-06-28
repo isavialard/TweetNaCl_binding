@@ -1,21 +1,16 @@
-package body tweetnaclhl is
+package body TweetNaCl_Interface is
 
-
-   procedure crypto_box
-     (c : out CipherText;
-      sm : in PlainText;
-      n : in Nonce;
-      pk : in Key;
-      sk : in Key)
-
+   procedure Crypto_Box
+     (C  :    out CipherText;
+      SM : in     PlainText;
+      N  : in     Nonce;
+      PK : in     Key;
+      SK : in     Key)
    is
-
-      smu : PlainText(sm'First..sm'Last+32);
-
+      SMU : PlainText (SM'First .. SM'Last+32) := (1 .. 32 => 0) & Sm;
    begin
-      smu :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&sm);
       if crypto_box_curve25519xsalsa20poly1305_tweet(c, smu, smu'Length, n, pk, sk)/=0 then
-         Put_Line("error crypto_box");
+         raise Crypto_Error;
       end if;
    end crypto_box;
 
@@ -314,11 +309,10 @@ package body tweetnaclhl is
 
 
    function isSigned(m :PlainText) return int is begin return 0; end isSigned;
-   function isBoxPublicKey(k :Key) return int is begin return 0; end isBoxPublicKey;
    function isBoxAfterKey(k :Key) return int is begin return 0; end isBoxAfterKey;
    function isBoxSecretKey(k :Key) return int is begin return 0; end isBoxSecretKey;
    function isSignPublicKey(k :Key) return int is begin return 0; end isSignPublicKey;
    function isSignSecretKey(k :Key64) return int is begin return 0; end isSignSecretKey;
    function neverUsedYet(n :Nonce) return int is begin return 0; end neverUsedYet;
 
-end tweetnaclhl;
+end TweetNaCl_Interface;
