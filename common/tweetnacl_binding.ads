@@ -15,7 +15,7 @@ package TweetNaCl_Binding is
    subtype Index is u64 range 1 .. 1000;
 
    type Authenticator is array(Index16) of u8;
-   type Nonce is array(Index24) of u8;
+   type Nonce is limited private;
    type Key is array(Index32) of u8;
    type Key64 is array(Index64) of u8;
    
@@ -232,5 +232,7 @@ type CoreIn is array(Index16) of u8;
    function crypto_verify_32_tweet (x :in Key; y :in Key) return int;  -- ./tweetnacl.h:268
    pragma Import (C, crypto_verify_32_tweet, "crypto_verify_32_tweet");
 
+private
+   type Nonce is array(Index24) of u8;
 
 end TweetNaCl_Binding;

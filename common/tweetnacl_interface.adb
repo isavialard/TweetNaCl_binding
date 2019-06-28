@@ -1,4 +1,4 @@
-package body TweetNaCl_Interface is
+pacKage body TweetNaCl_Interface is
 
    procedure Crypto_Box
      (C  :    out CipherText;
@@ -7,298 +7,298 @@ package body TweetNaCl_Interface is
       PK : in     Key;
       SK : in     Key)
    is
-      SMU : PlainText (SM'First .. SM'Last+32) := (1 .. 32 => 0) & Sm;
+      SMU : PlainText (SM'First .. SM'Last+32) := (1 .. 32 => 0) & SM;
    begin
-      if crypto_box_curve25519xsalsa20poly1305_tweet(c, smu, smu'Length, n, pk, sk)/=0 then
+      if crypto_box_curve25519xsalsa20poly1305_tweet(C, SMU, SMU'Length, N, PK, SK)/=0 then
          raise Crypto_Error;
       end if;
    end crypto_box;
 
 
    procedure crypto_box_open
-     (sm : out PlainText;
-      c : in CipherText;
-      n : in Nonce;
-      pk : in Key;
-      sk : in Key)
+     (SM :    out PlainText;
+      C  : in     CipherText;
+      N  : in     Nonce;
+      PK : in     Key;
+      SK : in     Key)
 
    is
-      mu : PlainText(sm'First..sm'Last+32);
+      MU : PlainText(SM 'First..SM 'Last+32);
    begin
-      if crypto_box_curve25519xsalsa20poly1305_tweet_open(mu, c, c'Length, n, pk, sk)/=0 then
-         Put_Line("error crypto_box_open");
+      if crypto_box_curve25519xsalsa20poly1305_tweet_open(MU, C, C'Length, N, PK, SK)/=0 then
+         raise Crypto_Error;
       end if;
-      for i in sm'First..sm'Last loop
-         sm(i):=mu(i+32);
+      for i in SM 'First..SM 'Last loop
+         SM (i):=MU(i+32);
       end loop;
    end crypto_box_open;
 
 
-   procedure crypto_box_keypair (pk : out Key; sk : out Key)   is
+   procedure crypto_box_keypair (PK : out Key; SK : out Key)   is
    begin
-      if crypto_box_curve25519xsalsa20poly1305_tweet_keypair(pk, sk)/=0 then
-         Put_Line("error crypto_box_keypair");
+      if crypto_box_curve25519xsalsa20poly1305_tweet_keypair(PK, SK)/=0 then
+         Praise Crypto_Error;
       end if;
    end crypto_box_keypair;
 
 
    procedure crypto_sign
-     (sm : out PlainText;
-      m : in PlainText;
-      k : in Key64)
+     (SM  :    out PlainText;
+      M   : in     PlainText;
+      K   : in     Key64)
 
    is
       smlen : U64;
    begin
-      if crypto_sign_ed25519_tweet(sm, smlen, m, m'Length, k)/=0 then
-         Put_Line("error crypto_sign");
+      if crypto_sign_ed25519_tweet(SM , smlen, M, M'Length, k)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_sign;
 
 
    procedure crypto_sign_open
-     (m : out PlainText;
-      sm : in PlainText;
-      pk : in Key)
+     (M  :    out PlainText;
+      SM : in     PlainText;
+      PK : in     Key)
 
    is
-      mu : PlainText(sm'First..sm'Last);
+      MU : PlainText(SM 'First..SM 'Last);
       mlen : U64;
    begin
-      if crypto_sign_ed25519_tweet_open(mu,mlen,sm,sm'Length,pk)/=0 then
-         Put_Line("error crypto_sign_open");
+      if crypto_sign_ed25519_tweet_open(MU,mlen,SM ,SM 'Length,PK)/=0 then
+         raise Crypto_Error;
       end if;
-      m:=(mu(mu'First .. mu'First + mlen -1));
+      M:=(MU(MU'First .. MU'First + mlen -1));
    end crypto_sign_open;
 
 
-   procedure crypto_sign_keypair (pk : out Key; sk : out Key64)   is
+   procedure crypto_sign_keypair (PK : out Key; SK : out Key64)   is
    begin
-      if crypto_sign_ed25519_tweet_keypair(pk, sk)/=0 then
-         Put_Line("error crypto_sign_keypair");
+      if crypto_sign_ed25519_tweet_keypair(PK, SK)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_sign_keypair;
 
-
-   procedure randombytes (x: out Key) is
+   procedure randombytes (K: out Key) is
    begin
-      randombytes(x,32);
+      randombytes(K,32);
    end randombytes;
-   procedure randombytes (x: out Nonce) is
+
+   procedure randombytes (N: out Nonce) is
    begin
-      randombytes(x,24);
+      randombytes(K,24);
    end randombytes;
 
    procedure crypto_box_beforenm
-     (k : out Key;
-      pk : in Key;
-      sk : in Key) is
+     (K  :    out Key;
+      PK : in     Key;
+      SK : in     Key) is
    begin
-      if crypto_box_curve25519xsalsa20poly1305_tweet_beforenm(k,pk,sk)/=0 then
-         Put_Line("error crypto_box_beforenm");
+      if crypto_box_curve25519xsalsa20poly1305_tweet_beforenm(K,PK,SK)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_box_beforenm;
 
    procedure crypto_box_afternm
-     (c : out CipherText;
-      m : in PlainText;
-      n : in Nonce;
-      k : in Key)
+     (C :    out CipherText;
+      M : in     PlainText;
+      N : in     Nonce;
+      K : in     Key)
    is
-      smu : PlainText(m'First..m'Last+32);
+      SMU : PlainText(M'First..M'Last+32);
    begin
-      smu :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&m);
-      if crypto_box_curve25519xsalsa20poly1305_tweet_afternm(c, smu, m'Length+32, n, k)/=0 then
-         Put_Line("error crypto_box_afternm");
+      SMU :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&M);
+      if crypto_box_curve25519xsalsa20poly1305_tweet_afternm(C SMU, M'Length+32, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_box_afternm;
 
 
    procedure crypto_box_open_afternm
-     (m : out PlainText;
-      c : in CipherText;
-      n : in Nonce;
-      k : in Key)
+     (M :    out PlainText;
+      C : in     CipherText;
+      N : in     Nonce;
+      K : in     Key)
    is
-      mu : PlainText(m'First..m'Last+32);
+      MU : PlainText(M'First..M'Last+32);
    begin
-      if crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm(mu, c, c'Length, n,k)/=0 then
-         Put_Line("error crypto_box_open_afternm");
+      if crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm(MU, C C'Length, N,K)/=0 then
+        raise Crypto_Error;
       end if;
-      for i in m'First..m'Last loop
-         m(i):=mu(i+32);
+      for i in M'First..M'Last loop
+         M(i):=MU(i+32);
       end loop;
    end crypto_box_open_afternm;
 
 
    procedure crypto_core_salsa20
-     (argOut : out CoreOut;
-      argIn : in CoreIn;
-      k : in Key;
-      sigma : in Authenticator) is
+     (argOut :    out CoreOut;
+      argIn  : in     CoreIn;
+      K      : in     Key;
+      sigma  : in     Authenticator) is
    begin
-      if crypto_core_salsa20_tweet(argOut, argIn, k, sigma)/=0 then
-         Put_Line("error crypto_core_salsa20");
+      if crypto_core_salsa20_tweet(argOut, argIn, K, sigma)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_core_salsa20;
 
 
    procedure crypto_core_hsalsa20
-     (ArgOut : out CoreOut;
-      argIn :in CoreIn;
-      k :in Key;
-      sigma :in Authenticator)is
+     (ArgOut :    out CoreOut;
+      argIn  :in     CoreIn;
+      K      :in     Key;
+      sigma  :in     Authenticator)is
    begin
-      if crypto_core_hsalsa20_tweet(argOut, argIn, k, sigma)/=0 then
-         Put_Line("error crypto_core_hsalsa20");
+      if crypto_core_hsalsa20_tweet(argOut, argIn, K, sigma)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_core_hsalsa20;
 
 
    procedure crypto_hashblocks
-     (x : in out Key64;
-      m : in PlainText) is
+     (X : in out Key64;
+      M : in     PlainText) is
    begin
-      if crypto_hashblocks_sha512_tweet(x, m, m'Length)/=0 then
-         Put_Line("error crypto_hashblocks");
+      if crypto_hashblocks_sha512_tweet(X, M, M'Length)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_hashblocks;
 
 
    procedure crypto_hash
-     (argOut : out Key64;
-      m : in PlainText) is
+     (argOut :    out Key64;
+      M      : in     PlainText) is
    begin
       if crypto_hash_sha512_tweet(argOut, m, m'Length)/=0 then
-         Put_Line("error crypto_hash");
+         raise Crypto_Error;
       end if;
    end crypto_hash;
 
 
    procedure crypto_onetimeauth
-     (argOut : out Authenticator;
-      m : in  PlainText;
-      k : in Key) is
+     (argOut :    out Authenticator;
+      M      : in     PlainText;
+      K      : in     Key) is
    begin
-      if crypto_onetimeauth_poly1305_tweet(argOut, m, m'Length, k)/=0 then
-         Put_Line("error crypto_onetimeauth");
+      if crypto_onetimeauth_poly1305_tweet(argOut, M, M'Length, K)/=0 then
+         Praise Crypto_Error;
       end if;
    end crypto_onetimeauth;
 
 
    function crypto_onetimeauth_verify
-     (h : in Authenticator;
-      m : in PlainText;
-      k : in Key) return int is
+     (H : in     Authenticator;
+      M : in     PlainText;
+      K : in     Key) return int is
    begin
-      return crypto_onetimeauth_poly1305_tweet_verify(h, m, m'Length, k);
+      return crypto_onetimeauth_poly1305_tweet_verify(H, M, M'Length, K);
      end crypto_onetimeauth_verify;
 
 
    procedure crypto_scalarmult
-     (q : out Key;
-      n : in Key;
-      p : in Key) is
+     (Q :    out Key;
+      N : in     Key;
+      P : in     Key) is
    begin
-      if crypto_scalarmult_curve25519_tweet(q, n, p)/=0 then
-         Put_Line("error crypto_scalarmult");
+      if crypto_scalarmult_curve25519_tweet(Q, N, P)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_scalarmult;
 
 
-   procedure crypto_scalarmult_base (q : out Key; n : in Key) is
+   procedure crypto_scalarmult_base (Q : out Key; N : in Key) is
    begin
-      if crypto_scalarmult_curve25519_tweet_base(q, n)/=0 then
-         Put_Line("error crypto_scalarmult_base");
+      if crypto_scalarmult_curve25519_tweet_base(Q, N)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_scalarmult_base;
 
 
    procedure crypto_secretbox
-     (c : out CipherText;
-      m : in PlainText;
-      n : in Nonce;
-      k : in Key)
+     (C:     out CipherText;
+      M : in     PlainText;
+      N : in     Nonce;
+      K : in     Key)
    is
-      smu : PlainText(m'First..m'Last+32);
+      SMU : PlainText(M'First..M'Last+32);
    begin
-      smu :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&m);
-      if crypto_secretbox_xsalsa20poly1305_tweet(c, smu, m'Length+32, n, k)/=0 then
-         Put_Line("error crypto_secretbox");
+      SMU :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&M);
+      if crypto_secretbox_xsalsa20poly1305_tweet(C, SMU, M'Length+32, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_secretbox;
 
 
    procedure crypto_secretbox_open
-     (m : out PlainText;
-      c : in CipherText;
-      n : in Nonce;
-      k : in Key)
+     (M :    out PlainText;
+      C : in     CipherText;
+      N : in     Nonce;
+      K : in     Key)
     is
-      mu : PlainText(m'First..m'Last+32);
+      MU : PlainText(m'First..m'Last+32);
    begin
-      if crypto_secretbox_xsalsa20poly1305_tweet_open(mu, c, c'Length, n,k)/=0 then
-         Put_Line("error crypto_secretbox_open");
+      if crypto_secretbox_xsalsa20poly1305_tweet_open(MU, C, C'Length, N,K)/=0 then
+         raise Crypto_Error;
       end if;
-      for i in m'First..m'Last loop
-         m(i):=mu(i+32);
+      for i in M'First..M'Last loop
+         M(i):=MU(i+32);
       end loop;
    end crypto_secretbox_open;
 
 
    procedure crypto_stream_xsalsa20
-     (c : out CipherText;
-      n : in Nonce;
-      k : in Key)
+     (C :    out CipherText;
+      N : in     Nonce;
+      K : in     Key)
    is
       clen : u64 := c'Length;
    begin
-      if crypto_stream_xsalsa20_tweet(c, clen, n, k)/=0 then
-         Put_Line("error crypto_stream_xsalsa20");
+      if crypto_stream_xsalsa20_tweet(C, clen, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_stream_xsalsa20;
 
 
    procedure crypto_stream_xsalsa20_xor
-     (c : out CipherText;
-      m : in  PlainText;
-      n : in Nonce;
-      k : in Key) is
+     (C :    out CipherText;
+      M : in     PlainText;
+      N : in     Nonce;
+      K : in     Key) is
    begin
-      if crypto_stream_xsalsa20_tweet_xor(c, m, m'Length, n, k)/=0 then
-         Put_Line("error crypto_stream_xsalsa20_xor");
+      if crypto_stream_xsalsa20_tweet_xor(C, M, M'Length, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_stream_xsalsa20_xor;
 
 
    procedure crypto_stream_salsa20
-     (c : out CipherText;
-      n : in Nonce;
-      k : in Key)
+     (C :    out CipherText;
+      N : in     Nonce;
+      K : in     Key)
    is
-      clen : u64 := c'Length;
+      clen : u64 := C'Length;
    begin
-      if crypto_stream_salsa20_tweet(c, clen, n, k)/=0 then
-         Put_Line("error crypto_stream_salsa20");
+      if crypto_stream_salsa20_tweet(C, clen, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_stream_salsa20;
 
 
    procedure crypto_stream_salsa20_xor
-     (c : out CipherText;
-      m : in PlainText;
-      n : in Nonce;
-      k : in Key)  is
+     (C :    out CipherText;
+      M : in     PlainText;
+      N : in     Nonce;
+      K : in     Key)  is
    begin
-      if crypto_stream_salsa20_tweet_xor(c, m, m'Length, n, k)/=0 then
-         Put_Line("error crypto_stream_salsa20_xor");
+      if crypto_stream_salsa20_tweet_xor(C, M, M'Length, N, K)/=0 then
+         raise Crypto_Error;
       end if;
    end crypto_stream_salsa20_xor;
 
 
-   function crypto_verify_16(x :in Authenticator; y :in Authenticator) return int is
+   function crypto_verify_16(X :in Authenticator; Y :in Authenticator) return int is
    begin
-      return crypto_verify_16_tweet(x, y);
+      return crypto_verify_16_tweet(X, Y);
      end crypto_verify_16;
 
 
@@ -308,11 +308,11 @@ package body TweetNaCl_Interface is
    end crypto_verify_32;
 
 
-   function isSigned(m :PlainText) return int is begin return 0; end isSigned;
-   function isBoxAfterKey(k :Key) return int is begin return 0; end isBoxAfterKey;
-   function isBoxSecretKey(k :Key) return int is begin return 0; end isBoxSecretKey;
-   function isSignPublicKey(k :Key) return int is begin return 0; end isSignPublicKey;
-   function isSignSecretKey(k :Key64) return int is begin return 0; end isSignSecretKey;
-   function neverUsedYet(n :Nonce) return int is begin return 0; end neverUsedYet;
+   function isSigned       (M :PlainText) return int is begin return 0; end isSigned;
+   function isBoxAfterKey  (K :Key)       return int is begin return 0; end isBoxAfterKey;
+   function isBoxSecretKey (K :Key)       return int is begin return 0; end isBoxSecretKey;
+   function isSignPublicKey(K :Key)       return int is begin return 0; end isSignPublicKey;
+   function isSignSecretKey(K :Key64)     return int is begin return 0; end isSignSecretKey;
+   function neverUsedYet   (N :Nonce)     return int is begin return 0; end neverUsedYet;
 
 end TweetNaCl_Interface;
