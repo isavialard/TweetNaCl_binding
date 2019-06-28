@@ -2,8 +2,8 @@ pragma SPARK_Mode;
 
 with Interfaces.C; use Interfaces.C;
 with Ada.Text_IO;  use Ada.Text_IO;
-with tweetnaclhl; use tweetnaclhl;
-with tweetnacl_h; use tweetnacl_h;
+with TweetNaCl_Binding; use TweetNaCl_Binding;
+with TweetNaCl_Interface; use TweetNaCl_Interface;
 
 procedure Test is
 

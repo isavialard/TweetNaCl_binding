@@ -1,9 +1,7 @@
-pragma Style_Checks (Off);
-
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Extensions;
 
-package tweetnacl_h is
+package TweetNaCl_Binding is
 
    pragma Assertion_Policy (Pre => Check, Post => Check);
    
@@ -235,4 +233,4 @@ type CoreIn is array(Index16) of u8;
    pragma Import (C, crypto_verify_32_tweet, "crypto_verify_32_tweet");
 
 
-end tweetnacl_h;
+end TweetNaCl_Binding;
