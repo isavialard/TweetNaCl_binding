@@ -4,7 +4,7 @@ This is a binding in Ada and SPARK of the C crypto-library [TweetNaCl](http://tw
 
 ## Low level binding
 
-The package tweetnacl_h.ads is a low level binding used as an interface between C and Ada.
+The package tweetnacl_h.ads is a low level binding used as an interface between C and Ada. It was generated using the  Ada spec dump compiler, then modified in order to avoid using pointers to pass the arguments. More types were created to take advantage of Ada strong typing, and the functions declared have been limited by pre- and post-conditions to ensure they are used with array of the right sizes, and sometimes padded with zeros on the first 32 bytes.
 
 ## High level binding
 
