@@ -1,0 +1,7 @@
+20190628083948
+-c
+-x
+ada
+-gnatA
+-gnatc
+-gnates=/home/vialard/Documents/git/TweetNaCl_binding/obj/gnatprove/85a74aac.tmp

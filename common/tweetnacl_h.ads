@@ -1,23 +1,27 @@
-
 pragma Style_Checks (Off);
 
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Extensions;
 
 package tweetnacl_h is
-   --pragma Assertion_Policy (Pre => Check, Post => Check, Global => Check);
+
+   pragma Assertion_Policy (Pre => Check, Post => Check);
+   
    type u8 is mod 2 ** 8;
    type u64 is range -2 ** 63 .. +2 ** 63 - 1;
-   subtype Index is u64 range 1 .. 1000;
+   
    type Index16 is range 1 .. 16;
    type Index24 is range 1 .. 24;
    type Index32 is range 1 .. 32;
    type Index64 is range 1 .. 64;
+   subtype Index is u64 range 1 .. 1000;
+
    type Authenticator is array(Index16) of u8;
    type Nonce is array(Index24) of u8;
    type Key is array(Index32) of u8;
    type Key64 is array(Index64) of u8;
-   type CoreIn is array(Index16) of u8;
+   
+type CoreIn is array(Index16) of u8;
    type CoreOut is array(Index64) of u8;
 
    type CipherText is array(Index range<>) of u8;
@@ -32,21 +36,6 @@ package tweetnacl_h is
      Global => null;  -- ./tweetnacl.h:4
    pragma Import (C, randombytes, "randombytes");
 
-
-
-   --function crypto_auth_hmacsha512256_tweet --cette fonction n'apparait pas dans .c. Normalement elle devrait apparaître sous le nom crypto_auth
-     --(argOut : out Key; --si on prend onetimeauth comme modèle c'est un authenticator de 32 bytes
-     -- m : in PlainText;
-     -- n : in U64;
-     -- k : in Key) return int;  -- ./tweetnacl.h:14
-   --pragma Import (C, crypto_auth_hmacsha512256_tweet, "crypto_auth_hmacsha512256_tweet");
-
-   --function crypto_auth_hmacsha512256_tweet_verify --idem
-     --(h : in Key;
-     -- m : in PlainText;
-     -- n : in U64;
-     -- k : in Key) return int;  -- ./tweetnacl.h:15
-   --pragma Import (C, crypto_auth_hmacsha512256_tweet_verify, "crypto_auth_hmacsha512256_tweet_verify");
 
    function crypto_box_curve25519xsalsa20poly1305_tweet
      (c : out CipherText;
@@ -121,14 +110,6 @@ package tweetnacl_h is
     Pre => m'Length=n;  -- ./tweetnacl.h:107
    pragma Import (C, crypto_hashblocks_sha512_tweet, "crypto_hashblocks_sha512_tweet");
 
-   --function crypto_hashblocks_sha256_tweet --cette fonction n'existe pas dans .c, seul 512 existe
-     --(x : out Key;
-     -- m : in PlainText;
-     -- n : in U64) return int
-  -- with
-   -- Pre => m'Length=n;  -- ./tweetnacl.h:116
-  -- pragma Import (C, crypto_hashblocks_sha256_tweet, "crypto_hashblocks_sha256_tweet");
-
    function crypto_hash_sha512_tweet
      (argOut : out Key64;
       m : in PlainText;
@@ -136,12 +117,6 @@ package tweetnacl_h is
    with
     Pre => m'Length=n;  -- ./tweetnacl.h:129
    pragma Import (C, crypto_hash_sha512_tweet, "crypto_hash_sha512_tweet");
-
-   --function crypto_hash_sha256_tweet --cette fonction n'existe pas dans .c, seul 512 existe
-     --(argOut : out Key;
-     -- m : in PlainText;
-     -- n : in U64) return int;  -- ./tweetnacl.h:136
-  -- pragma Import (C, crypto_hash_sha256_tweet, "crypto_hash_sha256_tweet");
 
    function crypto_onetimeauth_poly1305_tweet
      (argOut : out Authenticator;
@@ -234,8 +209,6 @@ package tweetnacl_h is
     Pre => c'Length=d and c'Length=m'Length;  -- ./tweetnacl.h:236
    pragma Import (C, crypto_stream_xsalsa20_tweet_xor, "crypto_stream_xsalsa20_tweet_xor");
 
-
-
    function crypto_stream_salsa20_tweet
      (c : out CipherText;
       d : in U64;
@@ -255,19 +228,11 @@ package tweetnacl_h is
     Pre => c'Length=d and c'Length=m'Length;  -- ./tweetnacl.h:247
    pragma Import (C, crypto_stream_salsa20_tweet_xor, "crypto_stream_salsa20_tweet_xor");
 
-
-
-
    function crypto_verify_16_tweet (x :in Authenticator; y :in Authenticator) return int;  -- ./tweetnacl.h:261
    pragma Import (C, crypto_verify_16_tweet, "crypto_verify_16_tweet");
 
-
-
-
    function crypto_verify_32_tweet (x :in Key; y :in Key) return int;  -- ./tweetnacl.h:268
    pragma Import (C, crypto_verify_32_tweet, "crypto_verify_32_tweet");
-
-
 
 
 end tweetnacl_h;

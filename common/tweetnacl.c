@@ -163,15 +163,14 @@ int crypto_stream_salsa20(u8 *c,u64 d,const u8 *n,const u8 *k)
   return crypto_stream_salsa20_xor(c,0,d,n,k);
 }
 
-int crypto_stream(u8 *c,u64 d,const u8 *n,const u8 *k) // produces a d-byte stream c as a function of a secret key k and a nonce n. 
-
+int crypto_stream(u8 *c,u64 d,const u8 *n,const u8 *k)  
 {
   u8 s[32];
   crypto_core_hsalsa20(s,n,k,sigma);
   return crypto_stream_salsa20(c,d,n+16,s);
 }
 
-int crypto_stream_xor(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k) //  encrypts a message m using a secret key k and a nonce n. returns the ciphertext c. guarantees that the ciphertext has the same length as the plaintext, and is the plaintext xor the output of crypto_stream. Consequently crypto_stream_xor can also be used to decrypt. 
+int crypto_stream_xor(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k) 
 
 {
   u8 s[32];
@@ -193,8 +192,7 @@ static const u32 minusp[17] = {
   5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 252
 } ;
 
-int crypto_onetimeauth(u8 *out,const u8 *m,u64 n,const u8 *k) //authenticates a message m using a secret key k, and returns an authenticator a out.
-
+int crypto_onetimeauth(u8 *out,const u8 *m,u64 n,const u8 *k) 
 {
   u32 s,i,j,u,x[17],r[17],h[17],c[17],g[17];
 
@@ -247,15 +245,14 @@ int crypto_onetimeauth(u8 *out,const u8 *m,u64 n,const u8 *k) //authenticates a 
   return 0;
 }
 
-int crypto_onetimeauth_verify(const u8 *h,const u8 *m,u64 n,const u8 *k) //checks a is a correct authenticator of a message m under the secret key k. 
+int crypto_onetimeauth_verify(const u8 *h,const u8 *m,u64 n,const u8 *k) 
 {
   u8 x[16];
   crypto_onetimeauth(x,m,n,k);
   return crypto_verify_16(h,x);
 }
 
-int crypto_secretbox(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k) // encrypts and authenticates a message m using a secret key k and a nonce n. returns the resulting ciphertext c. 
-
+int crypto_secretbox(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k) 
 {
   int i;
   if (d < 32) return -1;
@@ -265,7 +262,7 @@ int crypto_secretbox(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k) // encrypt
   return 0;
 }
 
-int crypto_secretbox_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *k)//  verifies and decrypts a ciphertext c using a secret key k and a nonce n.  returns the resulting plaintext m.
+int crypto_secretbox_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *k)
 {
   int i;
   u8 x[32];
@@ -404,7 +401,7 @@ sv pow2523(gf o,const gf i)
   FOR(a,16) o[a]=c[a];
 }
 
-int crypto_scalarmult(u8 *q,const u8 *n,const u8 *p) //multiplies a group element p by an integer n. It returns the resulting group element q of length crypto_scalarmult_BYTES 32. 
+int crypto_scalarmult(u8 *q,const u8 *n,const u8 *p) 
 {
   u8 z[32];
   i64 x[80],r,i;
@@ -455,15 +452,15 @@ int crypto_scalarmult(u8 *q,const u8 *n,const u8 *p) //multiplies a group elemen
   return 0;
 }
 
-int crypto_scalarmult_base(u8 *q,const u8 *n)//computes the scalar product of a standard group element and an integer n. It returns the resulting group element q 
+int crypto_scalarmult_base(u8 *q,const u8 *n)
 {
     return crypto_scalarmult(q,n,_9);
 }
 
-int crypto_box_keypair(u8 *y,u8 *x) //randomly generates a secret key and a corresponding public key. It puts the secret key into sk and returns the public key. It guarantees that sk has crypto_box_SECRETKEYBYTES(32) bytes and that pk has crypto_box_PUBLICKEYBYTES(32) bytes. 
+int crypto_box_keypair(u8 *y,u8 *x) 
 {
-  randombytes(x,32);// x est généré ici, c'est sk
-  return crypto_scalarmult_base(y,x); //y est la pk correspondant à x
+  randombytes(x,32);
+  return crypto_scalarmult_base(y,x); 
 }
 
 int crypto_box_beforenm(u8 *k,const u8 *y,const u8 *x)
@@ -483,15 +480,14 @@ int crypto_box_open_afternm(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *k)
   return crypto_secretbox_open(m,c,d,n,k);
 }
 
-int crypto_box(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *y,const u8 *x) //encrypts and authenticates a message m using the sender's secret key sk, the receiver's public key pk, and a nonce n. returns the resulting ciphertext c.raises an exception if sk.size() is not crypto_box_SECRETKEYBYTES 32 or if pk.size() is not crypto_box_PUBLICKEYBYTES 32 or if n.size() is not crypto_box_NONCEBYTES 24.
-//c, m ?
+int crypto_box(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *y,const u8 *x) 
 {
   u8 k[32];
   crypto_box_beforenm(k,y,x);
   return crypto_box_afternm(c,m,d,n,k);
 }
 
-int crypto_box_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *y,const u8 *x) //  verifies and decrypts a ciphertext c using the receiver's secret key sk, the sender's public key pk, and a nonce n. returns the resulting plaintext m. If the ciphertext fails verification, raises an exception. also raises an exception if sk.size() is not crypto_box_SECRETKEYBYTES 32 or if pk.size() is not crypto_box_PUBLICKEYBYTES 32 or if n.size() is not crypto_box_NONCEBYTES 24. 
+int crypto_box_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *y,const u8 *x) 
 {
   u8 k[32];
   crypto_box_beforenm(k,y,x);
@@ -573,7 +569,7 @@ static const u8 iv[64] = {
   0x5b,0xe0,0xcd,0x19,0x13,0x7e,0x21,0x79
 } ;
 
-int crypto_hash(u8 *out,const u8 *m,u64 n) // The crypto_hash function hashes a message m. It returns a hash h out . 
+int crypto_hash(u8 *out,const u8 *m,u64 n) 
 
 
 {
@@ -669,7 +665,7 @@ sv scalarbase(gf p[4],const u8 *s)
   scalarmult(p,q,s);
 }
 
-int crypto_sign_keypair(u8 *pk, u8 *sk)//randomly generates a secret key and a corresponding public key. It puts the secret key into sk and returns the public key. 
+int crypto_sign_keypair(u8 *pk, u8 *sk)
 {
   u8 d[64];
   gf p[4];
@@ -724,7 +720,7 @@ sv reduce(u8 *r)
   modL(r,x);
 }
 
-int crypto_sign(u8 *sm,u64 *smlen,const u8 *m,u64 n,const u8 *sk) //function signs a message m using the signer's secret key sk. The crypto_sign function returns the resulting signed message sm. 
+int crypto_sign(u8 *sm,u64 *smlen,const u8 *m,u64 n,const u8 *sk) 
 {
   u8 d[64],h[64],r[64];
   i64 i,j,x[64];
@@ -792,8 +788,7 @@ static int unpackneg(gf r[4],const u8 p[32])
   return 0;
 }
 
-int crypto_sign_open(u8 *m,u64 *mlen,const u8 *sm,u64 n,const u8 *pk) // verifies the signature in sm using the signer's public key pk. returns the message m. 
-
+int crypto_sign_open(u8 *m,u64 *mlen,const u8 *sm,u64 n,const u8 *pk)  
 {
   int i;
   u8 t[32],h[64];

@@ -1,0 +1,333 @@
+V "GNAT Lib v2019"
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U tweetnaclhl%b		tweetnaclhl.adb		7f5d37c5 NE OO PK IL
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+U tweetnaclhl%s		tweetnaclhl.ads		8717e5d9 EE NE OO PK IL
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W interfaces.c.extensions%s  i-cexten.ads	i-cexten.ali
+W tweetnacl_h%s		tweetnacl_h.ads		tweetnacl_h.ali
+
+D ada.ads		20190518041255 76789da1 ada%s
+D a-except.ads		20190518041255 291912d5 ada.exceptions%s
+D a-ioexce.ads		20190518041254 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20190518041255 119b8fb3 ada.streams%s
+D a-tags.ads		20190518041256 491b781d ada.tags%s
+D a-textio.ads		20190518041256 aef4d56d ada.text_io%s
+D a-unccon.ads		20190518041255 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20190518041254 5ab55268 interfaces%s
+D i-c.ads		20190518041254 5421119b interfaces.c%s
+D i-cexten.ads		20190518041254 38d7e116 interfaces.c.extensions%s
+D i-cstrea.ads		20190518041254 e53d8b8e interfaces.c_streams%s
+D system.ads		20190518041255 4635ec04 system%s
+D s-assert.ads		20190518041255 cd8d2c94 system.assertions%s
+D s-crtl.ads		20190518041254 0ebbdb71 system.crtl%s
+D s-exctab.ads		20190518041255 54135002 system.exception_table%s
+D s-ficobl.ads		20190518041256 078245e4 system.file_control_block%s
+D s-parame.ads		20190518041256 48ec542b system.parameters%s
+D s-secsta.ads		20190518041256 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20190518041255 a7318a92 system.soft_links%s
+D s-stache.ads		20190518041256 a37c21ec system.stack_checking%s
+D s-stalib.ads		20190518041256 09bd3940 system.standard_library%s
+D s-stoele.ads		20190518041256 2dc34a04 system.storage_elements%s
+D s-traent.ads		20190518041254 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20190518041255 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20190518041255 1b7d22d2 system.wch_con%s
+D tweetnacl_h.ads	20190627155120 7f864b6d tweetnacl_h%s
+D tweetnaclhl.ads	20190628085547 3a938b54 tweetnaclhl%s
+D tweetnaclhl.adb	20190628085403 45cebc91 tweetnaclhl%b
+G a e
+G c Z s b [crypto_box tweetnaclhl 15 14 none]
+G c Z s b [crypto_box_open tweetnaclhl 24 14 none]
+G c Z s b [crypto_box_keypair tweetnaclhl 35 14 none]
+G c Z s b [crypto_sign tweetnaclhl 39 14 none]
+G c Z s b [crypto_sign_open tweetnaclhl 48 14 none]
+G c Z s b [crypto_sign_keypair tweetnaclhl 55 14 none]
+G c Z s b [randombytes tweetnaclhl 62 14 none]
+G c Z s b [randombytes tweetnaclhl 64 14 none]
+G c Z s b [crypto_box_beforenm tweetnaclhl 68 14 none]
+G c Z s b [crypto_box_afternm tweetnaclhl 77 14 none]
+G c Z s b [crypto_box_open_afternm tweetnaclhl 85 14 none]
+G c Z s b [crypto_core_salsa20 tweetnaclhl 94 14 none]
+G c Z s b [crypto_core_hsalsa20 tweetnaclhl 100 14 none]
+G c Z s b [crypto_hashblocks tweetnaclhl 106 14 none]
+G c Z s b [crypto_hash tweetnaclhl 110 14 none]
+G c Z s b [crypto_onetimeauth tweetnaclhl 114 14 none]
+G c Z s b [crypto_onetimeauth_verify tweetnaclhl 120 13 none]
+G c Z s b [crypto_scalarmult tweetnaclhl 126 14 none]
+G c Z s b [crypto_scalarmult_base tweetnaclhl 131 14 none]
+G c Z s b [crypto_secretbox tweetnaclhl 133 14 none]
+G c Z s b [crypto_secretbox_open tweetnaclhl 141 14 none]
+G c Z s b [crypto_stream_xsalsa20 tweetnaclhl 150 14 none]
+G c Z s b [crypto_stream_xsalsa20_xor tweetnaclhl 157 14 none]
+G c Z s b [crypto_stream_salsa20 tweetnaclhl 166 14 none]
+G c Z s b [crypto_stream_salsa20_xor tweetnaclhl 174 14 none]
+G c Z s b [crypto_verify_16 tweetnaclhl 182 13 none]
+G c Z s b [crypto_verify_32 tweetnaclhl 184 13 none]
+G c Z s b [isboxpublickey tweetnaclhl 188 13 none]
+G c Z s b [isboxafterkey tweetnaclhl 189 13 none]
+G c Z s b [isboxsecretkey tweetnaclhl 190 13 none]
+G c Z s b [issignpublickey tweetnaclhl 191 13 none]
+G c Z s b [issignsecretkey tweetnaclhl 192 13 none]
+G c Z s b [issigned tweetnaclhl 193 13 none]
+G c Z s b [neverusedyet tweetnaclhl 194 13 none]
+G r c none [crypto_box tweetnaclhl 15 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet tweetnacl_h 40 13 none]
+G r c none [crypto_box_open tweetnaclhl 24 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet_open tweetnacl_h 51 13 none]
+G r c none [crypto_box_keypair tweetnaclhl 35 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet_keypair tweetnacl_h 62 13 none]
+G r c none [crypto_sign tweetnaclhl 39 14 none] [crypto_sign_ed25519_tweet tweetnacl_h 168 13 none]
+G r c none [crypto_sign_open tweetnaclhl 48 14 none] [crypto_sign_ed25519_tweet_open tweetnacl_h 179 13 none]
+G r c none [crypto_sign_keypair tweetnaclhl 55 14 none] [crypto_sign_ed25519_tweet_keypair tweetnacl_h 190 13 none]
+G r c none [randombytes tweetnaclhl 62 14 none] [randombytes tweetnacl_h 31 14 none]
+G r c none [randombytes tweetnaclhl 64 14 none] [randombytes tweetnacl_h 34 14 none]
+G r c none [crypto_box_beforenm tweetnaclhl 68 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet_beforenm tweetnacl_h 65 13 none]
+G r c none [crypto_box_afternm tweetnaclhl 77 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet_afternm tweetnacl_h 71 13 none]
+G r c none [crypto_box_open_afternm tweetnaclhl 85 14 none] [crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm tweetnacl_h 81 13 none]
+G r c none [crypto_core_salsa20 tweetnaclhl 94 14 none] [crypto_core_salsa20_tweet tweetnacl_h 91 13 none]
+G r c none [crypto_core_hsalsa20 tweetnaclhl 100 14 none] [crypto_core_hsalsa20_tweet tweetnacl_h 98 13 none]
+G r c none [crypto_hashblocks tweetnaclhl 106 14 none] [crypto_hashblocks_sha512_tweet tweetnacl_h 105 13 none]
+G r c none [crypto_hash tweetnaclhl 110 14 none] [crypto_hash_sha512_tweet tweetnacl_h 113 13 none]
+G r c none [crypto_onetimeauth tweetnaclhl 114 14 none] [crypto_onetimeauth_poly1305_tweet tweetnacl_h 121 13 none]
+G r c none [crypto_onetimeauth_verify tweetnaclhl 120 13 none] [crypto_onetimeauth_poly1305_tweet_verify tweetnacl_h 130 13 none]
+G r c none [crypto_scalarmult tweetnaclhl 126 14 none] [crypto_scalarmult_curve25519_tweet tweetnacl_h 139 13 none]
+G r c none [crypto_scalarmult_base tweetnaclhl 131 14 none] [crypto_scalarmult_curve25519_tweet_base tweetnacl_h 145 13 none]
+G r c none [crypto_secretbox tweetnaclhl 133 14 none] [crypto_secretbox_xsalsa20poly1305_tweet tweetnacl_h 148 13 none]
+G r c none [crypto_secretbox_open tweetnaclhl 141 14 none] [crypto_secretbox_xsalsa20poly1305_tweet_open tweetnacl_h 158 13 none]
+G r c none [crypto_stream_xsalsa20 tweetnaclhl 150 14 none] [crypto_stream_xsalsa20_tweet tweetnacl_h 193 13 none]
+G r c none [crypto_stream_xsalsa20_xor tweetnaclhl 157 14 none] [crypto_stream_xsalsa20_tweet_xor tweetnacl_h 202 13 none]
+G r c none [crypto_stream_salsa20 tweetnaclhl 166 14 none] [crypto_stream_salsa20_tweet tweetnacl_h 212 13 none]
+G r c none [crypto_stream_salsa20_xor tweetnaclhl 174 14 none] [crypto_stream_salsa20_tweet_xor tweetnacl_h 221 13 none]
+G r c none [crypto_verify_16 tweetnaclhl 182 13 none] [crypto_verify_16_tweet tweetnacl_h 231 13 none]
+G r c none [crypto_verify_32 tweetnaclhl 184 13 none] [crypto_verify_32_tweet tweetnacl_h 234 13 none]
+X 1 ada.ads
+16K9*Ada 20e8 27|3r6 3r24
+X 6 a-textio.ads
+57K13*Text_IO 727e16 27|3w10 3r28
+508U14*Put_Line 28|18s10 34s10 45s10 59s10 74s10 83s10 103s10 117s10 131s10
+. 146s10 158s10 168s10 178s10 189s10 209s10 217s10 232s10 246s10 262s10 274s10
+. 287s10 299s10
+X 8 interfac.ads
+38K9*Interfaces 184e15 27|4r6 4r24 5r6
+X 9 i-c.ads
+18K20*C 230e17 27|4w17 4r35 5r17
+35I9*int<integer> 27|123r26 182r80 184r60 188r43 189r42 190r43 191r44 192r46
+. 193r43 194r43 28|197r26 304r79 310r60 316r43 317r43 318r42 319r43 320r44
+. 321r46 322r43
+X 10 i-cexten.ads
+37K22*Extensions 476e28 27|5w19
+X 26 tweetnacl_h.ads
+6K9*tweetnacl_h 238e16 27|6w6 6r23
+10M9*u8
+11I9*u64<long_integer> 28|56r15 71r14 259r14 284r14
+19A9*Authenticator(10M9)<13I9> 27|98r18 104r17 115r20 121r14 182r37 182r58
+. 28|143r18 155r17 184r20 195r14 304r36 304r57
+20A9*Nonce(10M9)<14I9> 27|18r14 28r14 64r34 80r14 88r14 136r14 144r14 152r14
+. 160r14 168r14 177r14 194r29 28|7r14 26r14 92r34 110r14 125r14 225r14 240r14
+. 256r14 270r14 281r14 295r14 322r29
+21A9*Key(10M9)<15I9> 27|19r15 20r15 29r15 30r15 35r43 35r57 51r15 55r44 62r34
+. 69r15 70r15 71r15 81r14 89r14 97r14 103r13 117r14 123r14 127r15 128r14
+. 129r14 131r46 131r58 137r14 145r14 153r14 161r14 169r14 178r14 184r37 184r48
+. 188r31 189r30 190r31 191r32 28|8r15 9r15 27r15 28r15 42r43 42r57 67r15
+. 80r44 88r34 98r15 99r15 100r15 111r14 126r14 142r14 154r13 186r14 197r14
+. 204r15 205r14 206r14 214r46 214r58 226r14 241r14 257r14 271r14 282r14 296r14
+. 310r37 310r48 317r31 318r30 319r31 320r32
+22A9*Key64(10M9)<16I9> 27|42r14 55r58 107r18 111r20 192r32 28|53r14 80r58
+. 164r18 174r20 321r32
+24A6*CoreIn(10M9)<13I9> 27|96r18 102r17 28|141r18 153r17
+25A9*CoreOut(10M9)<16I9> 27|95r20 101r20 28|140r20 152r20
+27A9*CipherText(10M9)<11I9> 27|16r15 27r14 78r15 87r14 134r15 143r14 151r15
+. 158r15 167r15 175r15 28|5r15 25r14 108r15 124r14 223r15 239r14 255r15 268r15
+. 280r15 293r15
+28A9*PlainText(10M9)<11I9> 27|17r15 26r16 40r16 41r14 49r15 50r15 79r14 86r15
+. 108r14 112r14 116r15 122r14 135r14 142r15 159r15 176r14 193r25 28|6r15
+. 13r13 24r16 31r12 51r16 52r14 65r15 66r15 70r12 109r14 113r13 123r15 128r12
+. 165r14 175r14 185r15 196r14 224r14 228r13 238r15 243r12 269r15 294r14 316r25
+31U14*randombytes 28|90s7
+34U14*randombytes 28|94s7
+40V13*crypto_box_curve25519xsalsa20poly1305_tweet{9|35I9} 28|17s10
+51V13*crypto_box_curve25519xsalsa20poly1305_tweet_open{9|35I9} 28|33s10
+62V13*crypto_box_curve25519xsalsa20poly1305_tweet_keypair{9|35I9} 28|44s10
+65V13*crypto_box_curve25519xsalsa20poly1305_tweet_beforenm{9|35I9} 28|102s10
+71V13*crypto_box_curve25519xsalsa20poly1305_tweet_afternm{9|35I9} 28|116s10
+81V13*crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm{9|35I9} 28|130s10
+91V13*crypto_core_salsa20_tweet{9|35I9} 28|145s10
+98V13*crypto_core_hsalsa20_tweet{9|35I9} 28|157s10
+105V13*crypto_hashblocks_sha512_tweet{9|35I9} 28|167s10
+113V13*crypto_hash_sha512_tweet{9|35I9} 28|177s10
+121V13*crypto_onetimeauth_poly1305_tweet{9|35I9} 28|188s10
+130V13*crypto_onetimeauth_poly1305_tweet_verify{9|35I9} 28|199s14
+139V13*crypto_scalarmult_curve25519_tweet{9|35I9} 28|208s10
+145V13*crypto_scalarmult_curve25519_tweet_base{9|35I9} 28|216s10
+148V13*crypto_secretbox_xsalsa20poly1305_tweet{9|35I9} 28|231s10
+158V13*crypto_secretbox_xsalsa20poly1305_tweet_open{9|35I9} 28|245s10
+168V13*crypto_sign_ed25519_tweet{9|35I9} 28|58s10
+179V13*crypto_sign_ed25519_tweet_open{9|35I9} 28|73s10
+190V13*crypto_sign_ed25519_tweet_keypair{9|35I9} 28|82s10
+193V13*crypto_stream_xsalsa20_tweet{9|35I9} 28|261s10
+202V13*crypto_stream_xsalsa20_tweet_xor{9|35I9} 28|273s10
+212V13*crypto_stream_salsa20_tweet{9|35I9} 28|286s10
+221V13*crypto_stream_salsa20_tweet_xor{9|35I9} 28|298s10
+231V13*crypto_verify_16_tweet{9|35I9} 28|306s14
+234V13*crypto_verify_32_tweet{9|35I9} 28|312s14
+X 27 tweetnaclhl.ads
+9K9*tweetnaclhl 198l5 198e16 28|1b14 324l5 324t16
+15U14*crypto_box 16<7 17>7 18>7 19>7 20>7 28|4b14 20l8 20t18
+16a7 c{26|27A9} 22r12 28|5b7 17m54 17r54
+17a7 sm{26|28A9} 22r21 22r97 28|6b7 13r23 13r33 16r80
+18a7 n{26|20A9} 22r120 28|7b7 17r74
+19a7 pk{26|21A9} 22r53 28|8b7 17r77
+20a7 sk{26|21A9} 22r78 28|9b7 17r81
+24U14*crypto_box_open 26<7 27>7 28>7 29>7 30>7 28|23b14 39l8 39t23
+26a7 sm{26|28A9} 32r24 33r25 28|24b7 31r22 31r32 36r16 36r26 37m10
+27a7 c{26|27A9} 32r15 28|25b7 33r63 33r66
+28a7 n{26|20A9} 28|26b7 33r76
+29a7 pk{26|21A9} 32r56 28|27b7 33r79
+30a7 sk{26|21A9} 32r81 28|28b7 33r83
+35U14*crypto_box_keypair 35<34 35<48 28|42b14 47l8 47t26
+35a34 pk{26|21A9} 37r30 28|42b34 44m62 44r62
+35a48 sk{26|21A9} 37r55 28|42b48 44m66 44r66
+39U14*crypto_sign 40<7 41>7 42>7 28|50b14 61l8 61t19
+40a7 sm{26|28A9} 44r15 45r25 28|51b7 58m36 58r36
+41a7 m{26|28A9} 44r27 28|52b7 58r47 58r50
+42a7 k{26|22A9} 44r61 28|53b7 58r60
+48U14*crypto_sign_open 49<7 50>7 51>7 28|64b14 77l8 77t24
+49a7 m{26|28A9} 53r14 28|65b7 76m7
+50a7 sm{26|28A9} 53r23 53r75 28|66b7 70r22 70r32 73r49 73r52
+51a7 pk{26|21A9} 53r56 28|67b7 73r62
+55U14*crypto_sign_keypair 55<35 55<49 28|80b14 85l8 85t27
+55a35 pk{26|21A9} 57r31 28|80b35 82m44 82r44
+55a49 sk{26|22A9} 57r57 28|80b49 82m48 82r48
+62U14*randombytes 62<27 28|88b14 91l8 91t19
+62a27 x{26|21A9} 28|88b27 90m19
+64U14*randombytes 64<27 28|92b14 95l8 95t19
+64a27 x{26|20A9} 65r27 28|92b27 94m19
+68U14*crypto_box_beforenm 69<7 70>7 71>7 28|97b14 105l8 105t27
+69a7 k{26|21A9} 74r29 28|98b7 102m63 102r63
+70a7 pk{26|21A9} 73r29 28|99b7 102r65
+71a7 sk{26|21A9} 73r54 28|100b7 102r68
+77U14*crypto_box_afternm 78<7 79>7 80>7 81>7 28|107b14 119l8 119t26
+78a7 c{26|27A9} 83r12 28|108b7 116m62 116r62
+79a7 m{26|28A9} 83r21 83r69 28|109b7 113r23 113r32 115r80 116r70
+80a7 n{26|20A9} 28|110b7 116r83
+81a7 k{26|21A9} 83r51 28|111b7 116r86
+85U14*crypto_box_open_afternm 86<7 87>7 88>7 89>7 28|122b14 136l8 136t31
+86a7 m{26|28A9} 91r24 92r25 28|123b7 128r22 128r31 133r16 133r25 134m10
+87a7 c{26|27A9} 91r15 28|124b7 130r71 130r74
+88a7 n{26|20A9} 28|125b7 130r84
+89a7 k{26|21A9} 91r54 28|126b7 130r86
+94U14*crypto_core_salsa20 95<7 96>7 97>7 98>7 28|139b14 148l8 148t27
+95a7 argOut{26|25A9} 28|140b7 145m36 145r36
+96a7 argIn{26|24A6} 28|141b7 145r44
+97a7 k{26|21A9} 28|142b7 145r51
+98a7 sigma{26|19A9} 28|143b7 145r54
+100U14*crypto_core_hsalsa20 101<7 102>7 103>7 104>7 28|151b14 160l8 160t28
+101a7 ArgOut{26|25A9} 28|152b7 157m37 157r37
+102a7 argIn{26|24A6} 28|153b7 157r45
+103a7 k{26|21A9} 28|154b7 157r52
+104a7 sigma{26|19A9} 28|155b7 157r55
+106U14*crypto_hashblocks 107=7 108>7 28|163b14 170l8 170t25
+107a7 x{26|22A9} 28|164b7 167m41 167r41
+108a7 m{26|28A9} 28|165b7 167r44 167r47
+110U14*crypto_hash 111<7 112>7 28|173b14 180l8 180t19
+111a7 argOut{26|22A9} 28|174b7 177m35 177r35
+112a7 m{26|28A9} 28|175b7 177r43 177r46
+114U14*crypto_onetimeauth 115<7 116>7 117>7 28|183b14 191l8 191t26
+115a7 argOut{26|19A9} 28|184b7 188m44 188r44
+116a7 m{26|28A9} 118r25 28|185b7 188r52 188r55
+117a7 k{26|21A9} 28|186b7 188r65
+120V13*crypto_onetimeauth_verify{9|35I9} 121>7 122>7 123>7 28|194b13 200l10
+. 200t35
+121a7 h{26|19A9} 28|195b7 199r55
+122a7 m{26|28A9} 124r26 28|196b7 199r58 199r61
+123a7 k{26|21A9} 28|197b7 199r71
+126U14*crypto_scalarmult 127<7 128>7 129>7 28|203b14 211l8 211t25
+127a7 q{26|21A9} 28|204b7 208m45 208r45
+128a7 n{26|21A9} 28|205b7 208r48
+129a7 p{26|21A9} 28|206b7 208r51
+131U14*crypto_scalarmult_base 131<38 131>51 28|214b14 219l8 219t30
+131a38 q{26|21A9} 28|214b38 216m50 216r50
+131a51 n{26|21A9} 28|214b51 216r53
+133U14*crypto_secretbox 134<7 135>7 136>7 137>7 28|222b14 234l8 234t24
+134a7 c{26|27A9} 139r15 28|223b7 231m50 231r50
+135a7 m{26|28A9} 139r24 139r72 28|224b7 228r23 228r32 230r80 231r58
+136a7 n{26|20A9} 28|225b7 231r71
+137a7 k{26|21A9} 139r54 28|226b7 231r74
+141U14*crypto_secretbox_open 142<7 143>7 144>7 145>7 28|237b14 251l8 251t29
+142a7 m{26|28A9} 147r24 148r25 28|238b7 243r22 243r31 248r16 248r25 249m10
+143a7 c{26|27A9} 147r15 28|239b7 245r59 245r62
+144a7 n{26|20A9} 28|240b7 245r72
+145a7 k{26|21A9} 147r54 28|241b7 245r74
+150U14*crypto_stream_xsalsa20 151<7 152>7 153>7 28|254b14 264l8 264t30
+151a7 c{26|27A9} 28|255b7 259r21 261m39 261r39
+152a7 n{26|20A9} 28|256b7 261r48
+153a7 k{26|21A9} 155r28 28|257b7 261r51
+157U14*crypto_stream_xsalsa20_xor 158<7 159>7 160>7 161>7 28|267b14 276l8
+. 276t34
+158a7 c{26|27A9} 163r12 28|268b7 273m43 273r43
+159a7 m{26|28A9} 163r21 163r66 28|269b7 273r46 273r49
+160a7 n{26|20A9} 28|270b7 273r59
+161a7 k{26|21A9} 163r48 28|271b7 273r62
+166U14*crypto_stream_salsa20 167<7 168>7 169>7 28|279b14 289l8 289t29
+167a7 c{26|27A9} 28|280b7 284r21 286m38 286r38
+168a7 n{26|20A9} 28|281b7 286r47
+169a7 k{26|21A9} 171r28 28|282b7 286r50
+174U14*crypto_stream_salsa20_xor 175<7 176>7 177>7 178>7 28|292b14 301l8
+. 301t33
+175a7 c{26|27A9} 180r12 28|293b7 298m42 298r42
+176a7 m{26|28A9} 180r21 180r66 28|294b7 298r45 298r48
+177a7 n{26|20A9} 28|295b7 298r58
+178a7 k{26|21A9} 180r48 28|296b7 298r61
+182V13*crypto_verify_16{9|35I9} 182>31 182>52 28|304b13 307l10 307t26
+182a31 x{26|19A9} 28|304b30 306r37
+182a52 y{26|19A9} 28|304b51 306r40
+184V13*crypto_verify_32{9|35I9} 184>31 184>42 28|310b13 313l8 313t24
+184a31 x{26|21A9} 28|310b31 312r37
+184a42 y{26|21A9} 28|310b42 312r40
+188V13*isBoxPublicKey{9|35I9} 22s38 32s41 37s15 73s14 188>28 28|317b13 317l70
+. 317t84
+188a28 k{26|21A9} 28|317b28
+189V13*isBoxAfterKey{9|35I9} 74s15 83s37 91s40 139s40 147s40 155s14 163s34
+. 171s14 180s34 189>27 28|318b13 318l69 318t82
+189a27 k{26|21A9} 28|318b27
+190V13*isBoxSecretKey{9|35I9} 22s63 32s66 37s40 73s39 190>28 28|319b13 319l70
+. 319t84
+190a28 k{26|21A9} 28|319b28
+191V13*isSignPublicKey{9|35I9} 53s40 57s15 191>29 28|320b13 320l71 320t86
+191a29 k{26|21A9} 28|320b29
+192V13*isSignSecretKey{9|35I9} 44s45 57s41 192>29 28|321b13 321l73 321t88
+192a29 k{26|22A9} 28|321b29
+193V13*isSigned{9|35I9} 22s88 33s16 45s16 53s66 83s60 92s16 118s16 124s17
+. 139s63 148s16 163s57 180s57 193>22 28|316b13 316l70 316t78
+193a22 m{26|28A9} 28|316b22
+194V13*neverUsedYet{9|35I9} 22s107 65s14 194>26 28|322b13 322l70 322t82
+194a26 n{26|20A9} 28|322b26
+X 28 tweetnaclhl.adb
+13a7 smu{26|28A9} 16m7 17r57 17r62
+31a7 mu{26|28A9} 33m59 33r59 37r17
+36i11 i<long_integer> 37r13 37r20
+56i7 smlen{26|11I9} 58m40 58r40
+70a7 mu{26|28A9} 73m41 73r41 76r11 76r14 76r26
+71i7 mlen{26|11I9} 73m44 73r44 76r37
+113a7 smu{26|28A9} 115m7 116m65 116r65
+128a7 mu{26|28A9} 130m67 130r67 134r16
+133i11 i<long_integer> 134r12 134r19
+228a7 smu{26|28A9} 230m7 231r53
+243a7 mu{26|28A9} 245m55 245r55 249r16
+248i11 i<long_integer> 249r12 249r19
+259i7 clen{26|11I9} 261r42
+284i7 clen{26|11I9} 286r41
+

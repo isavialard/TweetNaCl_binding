@@ -1,8 +1,5 @@
-
-
 package body tweetnaclhl is
 
-   -- 6 procedures de base pour générer des keypair et signer encrypter décrypter authentifier
 
    procedure crypto_box
      (c : out CipherText;
@@ -16,11 +13,12 @@ package body tweetnaclhl is
       smu : PlainText(sm'First..sm'Last+32);
 
    begin
-      smu :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&sm);--m.all
+      smu :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&sm);
       if crypto_box_curve25519xsalsa20poly1305_tweet(c, smu, smu'Length, n, pk, sk)/=0 then
          Put_Line("error crypto_box");
       end if;
    end crypto_box;
+
 
    procedure crypto_box_open
      (sm : out PlainText;
@@ -40,12 +38,14 @@ package body tweetnaclhl is
       end loop;
    end crypto_box_open;
 
+
    procedure crypto_box_keypair (pk : out Key; sk : out Key)   is
    begin
       if crypto_box_curve25519xsalsa20poly1305_tweet_keypair(pk, sk)/=0 then
          Put_Line("error crypto_box_keypair");
       end if;
    end crypto_box_keypair;
+
 
    procedure crypto_sign
      (sm : out PlainText;
@@ -59,6 +59,7 @@ package body tweetnaclhl is
          Put_Line("error crypto_sign");
       end if;
    end crypto_sign;
+
 
    procedure crypto_sign_open
      (m : out PlainText;
@@ -75,6 +76,7 @@ package body tweetnaclhl is
       m:=(mu(mu'First .. mu'First + mlen -1));
    end crypto_sign_open;
 
+
    procedure crypto_sign_keypair (pk : out Key; sk : out Key64)   is
    begin
       if crypto_sign_ed25519_tweet_keypair(pk, sk)/=0 then
@@ -82,7 +84,15 @@ package body tweetnaclhl is
       end if;
    end crypto_sign_keypair;
 
-   -- Sous blocs des 6 procedures principales
+
+   procedure randombytes (x: out Key) is
+   begin
+      randombytes(x,32);
+   end randombytes;
+   procedure randombytes (x: out Nonce) is
+   begin
+      randombytes(x,24);
+   end randombytes;
 
    procedure crypto_box_beforenm
      (k : out Key;
@@ -108,6 +118,7 @@ package body tweetnaclhl is
       end if;
    end crypto_box_afternm;
 
+
    procedure crypto_box_open_afternm
      (m : out PlainText;
       c : in CipherText;
@@ -123,6 +134,7 @@ package body tweetnaclhl is
          m(i):=mu(i+32);
       end loop;
    end crypto_box_open_afternm;
+
 
    procedure crypto_core_salsa20
      (argOut : out CoreOut;
@@ -147,6 +159,7 @@ package body tweetnaclhl is
       end if;
    end crypto_core_hsalsa20;
 
+
    procedure crypto_hashblocks
      (x : in out Key64;
       m : in PlainText) is
@@ -156,6 +169,7 @@ package body tweetnaclhl is
       end if;
    end crypto_hashblocks;
 
+
    procedure crypto_hash
      (argOut : out Key64;
       m : in PlainText) is
@@ -164,6 +178,7 @@ package body tweetnaclhl is
          Put_Line("error crypto_hash");
       end if;
    end crypto_hash;
+
 
    procedure crypto_onetimeauth
      (argOut : out Authenticator;
@@ -175,6 +190,7 @@ package body tweetnaclhl is
       end if;
    end crypto_onetimeauth;
 
+
    function crypto_onetimeauth_verify
      (h : in Authenticator;
       m : in PlainText;
@@ -182,6 +198,7 @@ package body tweetnaclhl is
    begin
       return crypto_onetimeauth_poly1305_tweet_verify(h, m, m'Length, k);
      end crypto_onetimeauth_verify;
+
 
    procedure crypto_scalarmult
      (q : out Key;
@@ -193,12 +210,14 @@ package body tweetnaclhl is
       end if;
    end crypto_scalarmult;
 
+
    procedure crypto_scalarmult_base (q : out Key; n : in Key) is
    begin
       if crypto_scalarmult_curve25519_tweet_base(q, n)/=0 then
          Put_Line("error crypto_scalarmult_base");
       end if;
    end crypto_scalarmult_base;
+
 
    procedure crypto_secretbox
      (c : out CipherText;
@@ -213,6 +232,7 @@ package body tweetnaclhl is
          Put_Line("error crypto_secretbox");
       end if;
    end crypto_secretbox;
+
 
    procedure crypto_secretbox_open
      (m : out PlainText;
@@ -230,6 +250,7 @@ package body tweetnaclhl is
       end loop;
    end crypto_secretbox_open;
 
+
    procedure crypto_stream_xsalsa20
      (c : out CipherText;
       n : in Nonce;
@@ -241,6 +262,7 @@ package body tweetnaclhl is
          Put_Line("error crypto_stream_xsalsa20");
       end if;
    end crypto_stream_xsalsa20;
+
 
    procedure crypto_stream_xsalsa20_xor
      (c : out CipherText;
@@ -266,6 +288,7 @@ package body tweetnaclhl is
       end if;
    end crypto_stream_salsa20;
 
+
    procedure crypto_stream_salsa20_xor
      (c : out CipherText;
       m : in PlainText;
@@ -278,14 +301,10 @@ package body tweetnaclhl is
    end crypto_stream_salsa20_xor;
 
 
-
-
-
    function crypto_verify_16(x :in Authenticator; y :in Authenticator) return int is
    begin
       return crypto_verify_16_tweet(x, y);
      end crypto_verify_16;
-
 
 
    function crypto_verify_32 (x :in Key; y :in Key) return int is
@@ -293,12 +312,13 @@ package body tweetnaclhl is
       return crypto_verify_32_tweet(x, y);
    end crypto_verify_32;
 
-   -- ghost functions
+
    function isSigned(m :PlainText) return int is begin return 0; end isSigned;
    function isBoxPublicKey(k :Key) return int is begin return 0; end isBoxPublicKey;
    function isBoxAfterKey(k :Key) return int is begin return 0; end isBoxAfterKey;
    function isBoxSecretKey(k :Key) return int is begin return 0; end isBoxSecretKey;
    function isSignPublicKey(k :Key) return int is begin return 0; end isSignPublicKey;
    function isSignSecretKey(k :Key64) return int is begin return 0; end isSignSecretKey;
+   function neverUsedYet(n :Nonce) return int is begin return 0; end neverUsedYet;
 
 end tweetnaclhl;

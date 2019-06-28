@@ -1,10 +1,4 @@
 pragma SPARK_Mode;
--- enlever les pointeurs
--- faire un reproduceur
--- faire test ou on crypte et sign, et dans quel ordre ?
--- passer en spark
--- git
-
 
 with Interfaces.C; use Interfaces.C;
 with Ada.Text_IO;  use Ada.Text_IO;
@@ -29,18 +23,18 @@ begin
    crypto_box_keypair(cpk,csk);
    crypto_sign_keypair(spk,ssk);
    crypto_sign(sm,m,ssk);
-   randombytes(n,24);
+   randombytes(n);
    crypto_box(c,sm, n, cpk, csk);
    crypto_box_open(smu,c,n,cpk,csk);
    for i in sm'First..sm'Last loop
       if smu(i)/=sm(i) then
-         Put_Line("Prblm 6");
+         Put_Line("error new signed message different than initial signed message");
       end if;
    end loop;
    crypto_sign_open(mu, smu, spk);
    for i in m'First..m'Last loop
       if mu(i)/=m(i) then
-         Put_Line("Prblm 8");
+         Put_Line("error new message different than initial message");
       end if;
    end loop;
 
