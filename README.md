@@ -1,6 +1,6 @@
 # TweetNaCl_binding
 
-This is a binding in Ada of the C crypto-library [TweetNaCl](http://tweetnacl.cr.yp.to/index.html) by Prof Daniel J. Bernstein et al.
+This is a binding in Ada and SPARK of the C crypto-library [TweetNaCl](http://tweetnacl.cr.yp.to/index.html) by Prof Daniel J. Bernstein et al.
 
 ## Low level binding
 
@@ -8,7 +8,7 @@ The package tweetnacl_h.ads is a low level binding used as an interface between 
 
 ## High level binding
 
-The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads. It takes advantage of strong typing, ghost functions and Pre&Post conditions  and gnat and spark ....
+The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads, which comply with the limitations enforced by SPARK. Thus one can use the SPARK tools for formal verification. For instance, they can check if the programs declared in tweetnaclhl.ads are used as they are meant to be, with the right arguments and in the right order.
 
 ## Description of the programs
 
@@ -33,6 +33,10 @@ Crypto_sign_keypair generates a secret key sk and the corresponding public key p
 Randombytes can be used to randomly generate a Key or a Nonce.
 
 The other programs declared in tweetnaclhl.ads are the basic components of these six main procedures. If you want to use these other programs in a different way than tweetnacl.c, then the pre- and post-conditions in tweetnaclhl.ads could be an hindrance. That could mean that what you are trying to do is unsafe, but if you want to keep trying you should consider calling directly the functions declared in the low-level binding tweetnacl_h.ads.
+
+### Ghost functions
+
+Ghost functions like isSigned always return 0, thus the Pre- and Post-conditions they are called in are always valid : they have no influence during the execution. They are only useful with the proof stage of formal verification, where they check if the right arguments are used in the right way. For instance a Nonce has to be only used once, or a message has to be signed before being encrypted and not the other way around, in order to prove that these Pre-conditions are always valid.
 
 ## Test
 
