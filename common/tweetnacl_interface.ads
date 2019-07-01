@@ -4,11 +4,11 @@ with Interfaces.C.Extensions;
 with TweetNaCl_Binding; use TweetNaCl_Binding;
 
 --  This package provides a high-level interface to the six main services of
---  TweeNacl, to generate keypairs, encrypt and decrypt, sign and authenticate.
+--  TweeNacl, to generate Keypairs, encrypt and decrypt, sign and authenticate.
 --  We use types and contracts to ensure correct use of the interface.
 
 --Size_Truc : constant := 32;
---faire aussi des test qui marchent pas (à la compile, à l'exe, à l'analyse et à la preuve) le tout en bien pus bavard.
+--faire aussi des test qui marchent pas (à la compile, à l'exe, à l'analyse et à la preuve) le tout en bien plus bavard.
 
 package TweetNaCl_Interface
   with SPARK_Mode
@@ -23,7 +23,7 @@ is
       PK : in     Key;
       SK : in     Key)
      with
-       Pre => C'Length = SM'Length + 32
+       Pre => C'Length = SM'Length + BOX_BYTES
          and then  Is_Box_Public_Key (PK)
          and then IsBoxSecretKey(SK)
          and then IsSigned(Sm)
@@ -39,11 +39,11 @@ is
       PK : in     Key;
       SK : in     Key)
      with
-       Pre => C'Length=SM'Length+32
+       Pre => C'Length=SM'Length+BOX_BYTES
          and then Is_Box_Public_Key(PK)
          and then IsBoxSecretKey(SK),
        Post => IsSigned(SM);
-   --  Decrypt and verify a  cipher text C using a nonce N and public and secret
+   --  Decrypt and Verify a  cipher text C using a nonce N and public and secret
    --  keys SK and PK, and returns the corresponding signed message SM.
 
    procedure Crypto_Box_Keypair (PK : out Key; SK : out Key)
@@ -51,14 +51,14 @@ is
        Post => Is_Box_Public_Key(PK)
      and then IsBoxSecretKey(SK);
    --  generates a secret key SK and the corresponding public key PK to be used
-   --  with crypto_box and crypto_box_open.
+   --  with Crypto_Box and Crypto_Box_Open.
 
    procedure Crypto_Sign
      (SM :    out PlainText;
       M  : in     PlainText;
       K  : in     Key64)
      with
-       Pre => SM'Length = M'Length + 64
+       Pre => SM'Length = M'Length + SIGN_BYTES
           and then IsSignSecretKey(K),
        Post => IsSigned(SM);
    --  signs a message M using the signer's secret key SK and returns the
@@ -70,7 +70,7 @@ is
       SM : in     PlainText;
       PK : in     Key)
      with
-       Pre =>M'Length=SM'Length-64
+       Pre =>M'Length=SM'Length-SIGN_BYTES
           and then IsSignPublicKey(PK)
           and then IsSigned(SM) ;
    --  verifies the signature in SM using the signer's public key PK and
@@ -82,7 +82,7 @@ is
        Post => IsSignPublicKey(PK)
          and then IsSignSecretKey(SK);
    --  generates randomly a secret key SK and the corresponding public key PK
-   --  to be used with crypto_sign and crypto_sign_open.
+   --  to be used with Crypto_Sign and Crypto_Sign_Open.
 
    -- Building blocks of the 6 main programs
 
@@ -108,7 +108,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-       Pre => C'Length=M'Length+32
+       Pre => C'Length=M'Length+BOX_BYTES
          and then IsBoxAfterKey(K)
          and then IsSigned(M);
 
@@ -118,7 +118,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-       Pre => C'Length=M'Length+32
+       Pre => C'Length=M'Length+BOX_BYTES
          and then IsBoxAfterKey(K),
        Post => IsSigned(M);
 
@@ -167,7 +167,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-       Pre => C'Length=M'Length+32
+       Pre => C'Length=M'Length+BOX_BYTES
          and then IsBoxAfterKey(K)
          and then IsSigned(M);
 
@@ -177,7 +177,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-       Pre => C'Length=M'Length+32
+       Pre => C'Length=M'Length+BOX_BYTES
          and then IsBoxAfterKey(K),
        Post => IsSigned(M);
 

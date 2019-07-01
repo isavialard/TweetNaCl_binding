@@ -457,41 +457,41 @@ int crypto_scalarmult_base(u8 *q,const u8 *n)
     return crypto_scalarmult(q,n,_9);
 }
 
-int crypto_box_keypair(u8 *y,u8 *x) 
+int Crypto_Box_keypair(u8 *y,u8 *x) 
 {
   randombytes(x,32);
   return crypto_scalarmult_base(y,x); 
 }
 
-int crypto_box_beforenm(u8 *k,const u8 *y,const u8 *x)
+int Crypto_Box_beforenm(u8 *k,const u8 *y,const u8 *x)
 {
   u8 s[32];
   crypto_scalarmult(s,x,y);
   return crypto_core_hsalsa20(k,_0,s,sigma);
 }
 
-int crypto_box_afternm(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k)
+int Crypto_Box_afternm(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *k)
 {
   return crypto_secretbox(c,m,d,n,k);
 }
 
-int crypto_box_open_afternm(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *k)
+int Crypto_Box_open_afternm(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *k)
 {
   return crypto_secretbox_open(m,c,d,n,k);
 }
 
-int crypto_box(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *y,const u8 *x) 
+int Crypto_Box(u8 *c,const u8 *m,u64 d,const u8 *n,const u8 *y,const u8 *x) 
 {
   u8 k[32];
-  crypto_box_beforenm(k,y,x);
-  return crypto_box_afternm(c,m,d,n,k);
+  Crypto_Box_beforenm(k,y,x);
+  return Crypto_Box_afternm(c,m,d,n,k);
 }
 
-int crypto_box_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *y,const u8 *x) 
+int Crypto_Box_open(u8 *m,const u8 *c,u64 d,const u8 *n,const u8 *y,const u8 *x) 
 {
   u8 k[32];
-  crypto_box_beforenm(k,y,x);
-  return crypto_box_open_afternm(m,c,d,n,k);
+  Crypto_Box_beforenm(k,y,x);
+  return Crypto_Box_open_afternm(m,c,d,n,k);
 }
 
 static u64 R(u64 x,int c) { return (x >> c) | (x << (64 - c)); }
@@ -665,7 +665,7 @@ sv scalarbase(gf p[4],const u8 *s)
   scalarmult(p,q,s);
 }
 
-int crypto_sign_keypair(u8 *pk, u8 *sk)
+int Crypto_Sign_keypair(u8 *pk, u8 *sk)
 {
   u8 d[64];
   gf p[4];
@@ -720,7 +720,7 @@ sv reduce(u8 *r)
   modL(r,x);
 }
 
-int crypto_sign(u8 *sm,u64 *smlen,const u8 *m,u64 n,const u8 *sk) 
+int Crypto_Sign(u8 *sm,u64 *smlen,const u8 *m,u64 n,const u8 *sk) 
 {
   u8 d[64],h[64],r[64];
   i64 i,j,x[64];
@@ -788,7 +788,7 @@ static int unpackneg(gf r[4],const u8 p[32])
   return 0;
 }
 
-int crypto_sign_open(u8 *m,u64 *mlen,const u8 *sm,u64 n,const u8 *pk)  
+int Crypto_Sign_open(u8 *m,u64 *mlen,const u8 *sm,u64 n,const u8 *pk)  
 {
   int i;
   u8 t[32],h[64];
