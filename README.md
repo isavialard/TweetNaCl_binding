@@ -38,6 +38,8 @@ The other programs declared in tweetnacl_interface.ads are the basic components 
 
 Ghost functions like isSigned always return 0, thus the Pre- and Post-conditions they are called in are always valid : they have no influence during the execution. They are only useful with the proof stage of formal verification, where they check if the right arguments are used in the right way. For instance a Nonce has to be only used once, or a message has to be signed before being encrypted and not the other way around, in order to prove that these Pre-conditions are always valid.
 
-## Test
+## Tests
 
 Test.adb uses the six main procedure of tweetnacl to generate two pairs of keys: one pair to sign and authentify, the other to encrypt and decrypt a message. Then it uses these keys to sign the message, encrypt it, decrypt it, check the signature and return the initial message.
+
+Tests 2 to 5 are copies of test.adb with some mistakes or bad practices, which are caught by the pre- and post-conditions, and cause failure either at execution or during SPARK proof.
