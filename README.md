@@ -4,11 +4,11 @@ This is a binding in Ada and SPARK of the C crypto-library [TweetNaCl](http://tw
 
 ## Low level binding
 
-The package tweetnacl_h.ads is a low level binding used as an interface between C and Ada. It was generated using the  Ada spec dump compiler, then modified in order to avoid using pointers to pass the arguments. More types were created to take advantage of Ada strong typing, and the functions declared have been limited by pre- and post-conditions to ensure they are used with array of the right sizes, and sometimes padded with zeros on the first 32 bytes.
+The package tweetnacl_binding.ads is a low level binding used as an interface between C and Ada. It was generated using the  Ada spec dump compiler, then modified in order to avoid using pointers to pass the arguments. More types were created to take advantage of Ada strong typing, and the functions declared have been limited by pre- and post-conditions to ensure they are used with array of the right sizes, and sometimes padded with zeros on the first 32 bytes.
 
 ## High level binding
 
-The package tweetnaclhl.ads and tweetnaclhl.adb is a higher level binding than tweetnacl_h.ads, which comply with the limitations enforced by SPARK. Thus one can use the SPARK tools for formal verification. They can check if the programs declared in tweetnaclhl.ads are used as they are meant to be, with the right arguments and in the right order.
+The package tweetnacl_interface.ads and tweetnacl_interface.adb is a higher level binding than tweetnacl_binding.ads, which comply with the limitations enforced by SPARK. Thus one can use the SPARK tools for formal verification. They can check if the programs declared in tweetnaclhl.ads are used as they are meant to be, with the right arguments and in the right order.
 
 ## Description of the programs
 
@@ -32,12 +32,14 @@ Crypto_sign_keypair generates a secret key sk and the corresponding public key p
 
 Randombytes can be used to randomly generate a Key or a Nonce.
 
-The other programs declared in tweetnaclhl.ads are the basic components of these six main procedures. If you want to use these other programs in a different way than tweetnacl.c, then the pre- and post-conditions in tweetnaclhl.ads could be an hindrance. That could mean that what you are trying to do is unsafe, but if you want to keep trying you should consider calling directly the functions declared in the low-level binding tweetnacl_h.ads.
+The other programs declared in tweetnacl_interface.ads are the basic components of these six main procedures. If you want to use these other programs in a different way than tweetnacl.c, then the pre- and post-conditions in tweetnacl_interface.ads could be an hindrance. That could mean that what you are trying to do is unsafe, but if you want to keep trying you should consider calling directly the functions declared in the low-level binding tweetnacl_binding.ads.
 
 ### Ghost functions
 
 Ghost functions like isSigned always return 0, thus the Pre- and Post-conditions they are called in are always valid : they have no influence during the execution. They are only useful with the proof stage of formal verification, where they check if the right arguments are used in the right way. For instance a Nonce has to be only used once, or a message has to be signed before being encrypted and not the other way around, in order to prove that these Pre-conditions are always valid.
 
-## Test
+## Tests
 
 Test.adb uses the six main procedure of tweetnacl to generate two pairs of keys: one pair to sign and authentify, the other to encrypt and decrypt a message. Then it uses these keys to sign the message, encrypt it, decrypt it, check the signature and return the initial message.
+
+Tests 2 to 5 are copies of test.adb with some mistakes or bad practices, which are caught by the pre- and post-conditions, and cause failure either at execution or during SPARK proof.
