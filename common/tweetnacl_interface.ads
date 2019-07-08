@@ -1,7 +1,7 @@
-with Ada.Text_IO;  use Ada.Text_IO;
-with Interfaces.C; use Interfaces.C;
+with Ada.Text_IO;             use Ada.Text_IO;
+with Interfaces.C;            use Interfaces.C;
 with Interfaces.C.Extensions;
-with TweetNaCl_Binding; use TweetNaCl_Binding;
+with TweetNaCl_Binding;       use TweetNaCl_Binding;
 
 --  This package provides a high-level interface to the six main services of
 --  TweeNacl, to generate Keypairs, encrypt and decrypt, sign and authenticate.

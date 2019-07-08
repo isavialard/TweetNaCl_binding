@@ -1,5 +1,7 @@
+pragma Style_Checks (Off);
+-- No style checks for low-level binding based on generated code
+
 with Interfaces.C; use Interfaces.C;
-with Interfaces.C.Extensions;
 
 package TweetNaCl_Binding is
 
