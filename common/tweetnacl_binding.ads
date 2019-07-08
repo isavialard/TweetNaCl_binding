@@ -55,7 +55,7 @@ package TweetNaCl_Binding is
          and then c'Length=d 
          and then m'Length=d 
          and then (for all I in m'First .. m'First+BOX_BYTES-1 => m (I) = 0);  -- ./tweetnacl.h:44
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet, "Crypto_Box_curve25519xsalsa20poly1305_tweet");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet, "crypto_box_curve25519xsalsa20poly1305_tweet");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_open
      (m  :    out Plain_Text;
@@ -68,16 +68,16 @@ package TweetNaCl_Binding is
        Pre => d >= BOX_BYTES 
          and then c'Length=d 
          and then m'Length=d;  -- ./tweetnacl.h:45
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_open, "Crypto_Box_curve25519xsalsa20poly1305_tweet_open");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_open, "crypto_box_curve25519xsalsa20poly1305_tweet_open");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_keypair (pk : out Key; sk : out Key) return int;  -- ./tweetnacl.h:46
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_keypair, "Crypto_Box_curve25519xsalsa20poly1305_tweet_keypair");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_keypair, "crypto_box_curve25519xsalsa20poly1305_tweet_keypair");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm
      (k  :    out Key;
       pk : in     Key;
       sk : in     Key) return int;  -- ./tweetnacl.h:47
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm, "crypto_box_curve25519xsalsa20poly1305_tweet_beforenm");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm
      (c :    out Cipher_Text;
@@ -90,7 +90,7 @@ package TweetNaCl_Binding is
          and then m'Length=d 
          and then c'Length=d 
          and then (for all I in m'First .. m'First+BOX_BYTES-1 => m (I) = 0);  -- ./tweetnacl.h:48
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm, "crypto_box_curve25519xsalsa20poly1305_tweet_afternm");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm
      (m :    out Plain_Text;
@@ -102,7 +102,7 @@ package TweetNaCl_Binding is
        Pre => d>=BOX_BYTES
          and then c'Length=d 
          and then m'Length=d ;  -- ./tweetnacl.h:49
-   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm");
+   pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm, "crypto_box_curve25519xsalsa20poly1305_tweet_open_afternm");
 
    function crypto_core_salsa20_tweet
      (argOut :    out Core_Out;
@@ -196,7 +196,7 @@ package TweetNaCl_Binding is
          and then m'Length=n,
        Post => Crypto_Sign_ed25519_tweet'Result=0 
          and then smlen=n + SIGN_BYTES;  -- ./tweetnacl.h:214
-   pragma Import (C, Crypto_Sign_ed25519_tweet, "Crypto_Sign_ed25519_tweet");
+   pragma Import (C, Crypto_Sign_ed25519_tweet, "crypto_sign_ed25519_tweet");
 
    function Crypto_Sign_ed25519_tweet_open
      (m    :    out Plain_Text;
@@ -210,10 +210,10 @@ package TweetNaCl_Binding is
          and then sm'Length=n,
        Post => Crypto_Sign_ed25519_tweet_open'Result=0 
          and then mlen=n - SIGN_BYTES;  -- ./tweetnacl.h:215
-   pragma Import (C, Crypto_Sign_ed25519_tweet_open, "Crypto_Sign_ed25519_tweet_open");
+   pragma Import (C, Crypto_Sign_ed25519_tweet_open, "crypto_sign_ed25519_tweet_open");
 
    function Crypto_Sign_ed25519_tweet_keypair (pk : out Key; sk : out Key64) return int;  -- ./tweetnacl.h:216
-   pragma Import (C, Crypto_Sign_ed25519_tweet_keypair, "Crypto_Sign_ed25519_tweet_keypair");
+   pragma Import (C, Crypto_Sign_ed25519_tweet_keypair, "crypto_sign_ed25519_tweet_keypair");
 
    function crypto_stream_xsalsa20_tweet
      (c :    out Cipher_Text;
