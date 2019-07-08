@@ -27,11 +27,11 @@ package TweetNaCl_Binding is
    type Key is array(1 .. KEY_BYTES) of u8;
    type Key64 is array(1 .. SIGN_SECRET_KEY_BYTES) of u8;
    
-   type CoreIn is array(1 .. CORE_IN_BYTES) of u8;
-   type CoreOut is array(1 .. CORE_OUT_BYTES) of u8;
+   type Core_In is array(1 .. CORE_IN_BYTES) of u8;
+   type Core_Out is array(1 .. CORE_OUT_BYTES) of u8;
 
-   type CipherText is array(Index range<>) of u8;
-   type PlainText is array(Index range<>) of u8;
+   type Cipher_Text is array(Index range<>) of u8;
+   type Plain_Text is array(Index range<>) of u8;
 
 
    procedure randombytes (x: out Key; xlen : in U64) with
@@ -44,8 +44,8 @@ package TweetNaCl_Binding is
 
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet
-     (c  :    out Ciphertext;
-      m  : in     PlainText;
+     (c  :    out Cipher_Text;
+      m  : in     Plain_Text;
       d  : in     U64;
       n  : in     Nonce;
       pk : in     Key;
@@ -58,8 +58,8 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet, "Crypto_Box_curve25519xsalsa20poly1305_tweet");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_open
-     (m  :    out PlainText;
-      c  : in     CipherText;
+     (m  :    out Plain_Text;
+      c  : in     Cipher_Text;
       d  : in     U64;
       n  : in     Nonce;
       pk : in     Key;
@@ -80,8 +80,8 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_beforenm");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm
-     (c :    out CipherText;
-      m : in     PlainText;
+     (c :    out Cipher_Text;
+      m : in     Plain_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -93,8 +93,8 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_afternm");
 
    function Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm
-     (m :    out PlainText;
-      c : in     CipherText;
+     (m :    out Plain_Text;
+      c : in     Cipher_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -105,22 +105,22 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm, "Crypto_Box_curve25519xsalsa20poly1305_tweet_open_afternm");
 
    function crypto_core_salsa20_tweet
-     (argOut :    out CoreOut;
-      argIn  : in     CoreIn;
+     (argOut :    out Core_Out;
+      argIn  : in     Core_In;
       k      : in     Key;
       sigma  : in     Authenticator) return int;  -- ./tweetnacl.h:77
    pragma Import (C, crypto_core_salsa20_tweet, "crypto_core_salsa20_tweet");
 
    function crypto_core_hsalsa20_tweet
-     (ArgOut :    out CoreOut;
-      argIn  : in     CoreIn;
+     (ArgOut :    out Core_Out;
+      argIn  : in     Core_In;
       k      : in     Key;
       sigma  : in     Authenticator) return int;  -- ./tweetnacl.h:90
    pragma Import (C, crypto_core_hsalsa20_tweet, "crypto_core_hsalsa20_tweet");
 
    function crypto_hashblocks_sha512_tweet
      (x :    out Key64;
-      m : in     PlainText;
+      m : in     Plain_Text;
       n : in     U64) return int
    with
     Pre => m'Length=n;  -- ./tweetnacl.h:107
@@ -128,7 +128,7 @@ package TweetNaCl_Binding is
 
    function crypto_hash_sha512_tweet
      (argOut :    out Key64;
-      m      : in     PlainText;
+      m      : in     Plain_Text;
       n      : in     U64) return int
    with
     Pre => m'Length=n;  -- ./tweetnacl.h:129
@@ -136,7 +136,7 @@ package TweetNaCl_Binding is
 
    function crypto_onetimeauth_poly1305_tweet
      (argOut :    out Authenticator;
-      m      : in     PlainText;
+      m      : in     Plain_Text;
       n      : in     U64;
       k      : in     Key) return int
    with
@@ -145,7 +145,7 @@ package TweetNaCl_Binding is
 
    function crypto_onetimeauth_poly1305_tweet_verify
      (h : in     Authenticator;
-      m : in     PlainText;
+      m : in     Plain_Text;
       n : in     U64;
       k : in     Key) return int
    with
@@ -162,8 +162,8 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_scalarmult_curve25519_tweet_base, "crypto_scalarmult_curve25519_tweet_base");
 
    function crypto_secretbox_xsalsa20poly1305_tweet
-     (c :    out CipherText;
-      m : in     PlainText;
+     (c :    out Cipher_Text;
+      m : in     Plain_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -174,8 +174,8 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_secretbox_xsalsa20poly1305_tweet, "crypto_secretbox_xsalsa20poly1305_tweet");
 
    function crypto_secretbox_xsalsa20poly1305_tweet_open
-     (m :    out PlainText;
-      c : in     CipherText;
+     (m :    out Plain_Text;
+      c : in     Cipher_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -186,9 +186,9 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_secretbox_xsalsa20poly1305_tweet_open, "crypto_secretbox_xsalsa20poly1305_tweet_open");
 
    function Crypto_Sign_ed25519_tweet
-     (sm    :    out PlainText;
+     (sm    :    out Plain_Text;
       smlen :    out U64;
-      m     : in     PlainText;
+      m     : in     Plain_Text;
       n     : in     U64;
       k     : in     Key64) return int
    with
@@ -199,9 +199,9 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Sign_ed25519_tweet, "Crypto_Sign_ed25519_tweet");
 
    function Crypto_Sign_ed25519_tweet_open
-     (m    :    out PlainText;
+     (m    :    out Plain_Text;
       mlen :    out U64;
-      sm   : in     PlainText;
+      sm   : in     Plain_Text;
       n    : in     U64;
       pk   : in     Key) return int
      with
@@ -216,7 +216,7 @@ package TweetNaCl_Binding is
    pragma Import (C, Crypto_Sign_ed25519_tweet_keypair, "Crypto_Sign_ed25519_tweet_keypair");
 
    function crypto_stream_xsalsa20_tweet
-     (c :    out CipherText;
+     (c :    out Cipher_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -225,8 +225,8 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_stream_xsalsa20_tweet, "crypto_stream_xsalsa20_tweet");
 
    function crypto_stream_xsalsa20_tweet_xor
-     (c :    out CipherText;
-      m : in      PlainText;
+     (c :    out Cipher_Text;
+      m : in     Plain_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -236,7 +236,7 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_stream_xsalsa20_tweet_xor, "crypto_stream_xsalsa20_tweet_xor");
 
    function crypto_stream_salsa20_tweet
-     (c :    out CipherText;
+     (c :    out Cipher_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int
@@ -245,8 +245,8 @@ package TweetNaCl_Binding is
    pragma Import (C, crypto_stream_salsa20_tweet, "crypto_stream_salsa20_tweet");
 
    function crypto_stream_salsa20_tweet_xor
-     (c :    out CipherText;
-      m : in     PlainText;
+     (c :    out Cipher_Text;
+      m : in     Plain_Text;
       d : in     U64;
       n : in     Nonce;
       k : in     Key) return int

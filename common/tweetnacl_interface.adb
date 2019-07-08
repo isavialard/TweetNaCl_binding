@@ -1,13 +1,14 @@
-pacKage body TweetNaCl_Interface is
+
+package body TweetNaCl_Interface is
 
    procedure Crypto_Box
-     (C  :    out CipherText;
-      SM : in     PlainText;
+     (C  :    out Cipher_Text;
+      SM : in     Plain_Text;
       N  : in out Nonce;
       PK : in     Key;
       SK : in     Key)
    is
-      SMU : PlainText (SM'First .. SM'Last+32) := (1 .. 32 => 0) & SM;
+      SMU : Plain_Text (SM'First .. SM'Last+32) := (1 .. 32 => 0) & SM;
    begin
       if Crypto_Box_curve25519Xsalsa20poly1305_tweet(C, SMU, SMU'Length, N, PK, SK)/=0 then
          raise Crypto_Error;
@@ -16,14 +17,14 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Box_Open
-     (SM :    out PlainText;
-      C  : in     CipherText;
+     (SM :    out Plain_Text;
+      C  : in     Cipher_Text;
       N  : in     Nonce;
       PK : in     Key;
       SK : in     Key)
 
    is
-      MU : PlainText(SM 'First..SM 'Last+32);
+      MU : Plain_Text(SM 'First..SM 'Last+32);
    begin
       if Crypto_Box_curve25519Xsalsa20poly1305_tweet_Open(MU, C, C'Length, N, PK, SK)/=0 then
          raise Crypto_Error;
@@ -43,8 +44,8 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Sign
-     (SM  :    out PlainText;
-      M   : in     PlainText;
+     (SM  :    out Plain_Text;
+      M   : in     Plain_Text;
       K   : in     Key64)
 
    is
@@ -57,12 +58,12 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Sign_Open
-     (M  :    out PlainText;
-      SM : in     PlainText;
+     (M  :    out Plain_Text;
+      SM : in     Plain_Text;
       PK : in     Key)
 
    is
-      MU : PlainText(SM 'First..SM 'Last);
+      MU : Plain_Text(SM 'First..SM 'Last);
       mlen : U64;
    begin
       if Crypto_Sign_ed25519_tweet_Open(MU,mlen,SM ,SM 'Length,PK)/=0 then
@@ -100,12 +101,12 @@ pacKage body TweetNaCl_Interface is
    end Crypto_Box_Beforenm;
 
    procedure Crypto_Box_Afternm
-     (C :    out CipherText;
-      M : in     PlainText;
+     (C :    out Cipher_Text;
+      M : in     Plain_Text;
       N : in     Nonce;
       K : in     Key)
    is
-      SMU : PlainText(M'First..M'Last+32);
+      SMU : Plain_Text(M'First..M'Last+32);
    begin
       SMU :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&M);
       if Crypto_Box_curve25519Xsalsa20poly1305_tweet_afternm(C, SMU, M'Length+32, N, K)/=0 then
@@ -115,12 +116,12 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Box_Open_Afternm
-     (M :    out PlainText;
-      C : in     CipherText;
+     (M :    out Plain_Text;
+      C : in     Cipher_Text;
       N : in     Nonce;
       K : in     Key)
    is
-      MU : PlainText(M'First..M'Last+32);
+      MU : Plain_Text(M'First..M'Last+32);
    begin
       if Crypto_box_curve25519Xsalsa20poly1305_tweet_Open_afternm(MU, C, C'Length, N,K)/=0 then
         raise Crypto_Error;
@@ -132,8 +133,8 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Core_Salsa20
-     (argOut :    out CoreOut;
-      argIn  : in     CoreIn;
+     (argOut :    out Core_Out;
+      argIn  : in     Core_In;
       K      : in     Key;
       sigma  : in     Authenticator) is
    begin
@@ -144,8 +145,8 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Core_Hsalsa20
-     (ArgOut :    out CoreOut;
-      argIn  :in     CoreIn;
+     (ArgOut :    out Core_Out;
+      argIn  :in     Core_In;
       K      :in     Key;
       sigma  :in     Authenticator)is
    begin
@@ -157,7 +158,7 @@ pacKage body TweetNaCl_Interface is
 
    procedure Crypto_Hashblocks
      (X : in out Key64;
-      M : in     PlainText) is
+      M : in     Plain_Text) is
    begin
       if Crypto_hashblocks_sha512_tweet(X, M, M'Length)/=0 then
          raise Crypto_Error;
@@ -167,7 +168,7 @@ pacKage body TweetNaCl_Interface is
 
    procedure Crypto_Hash
      (argOut :    out Key64;
-      M      : in     PlainText) is
+      M      : in     Plain_Text) is
    begin
       if Crypto_hash_sha512_tweet(argOut, m, m'Length)/=0 then
          raise Crypto_Error;
@@ -177,7 +178,7 @@ pacKage body TweetNaCl_Interface is
 
    procedure Crypto_Onetimeauth
      (argOut :    out Authenticator;
-      M      : in     PlainText;
+      M      : in     Plain_Text;
       K      : in     Key) is
    begin
       if Crypto_onetimeauth_poly1305_tweet(argOut, M, M'Length, K)/=0 then
@@ -188,7 +189,7 @@ pacKage body TweetNaCl_Interface is
 
    function Crypto_Onetimeauth_Verify
      (H : in     Authenticator;
-      M : in     PlainText;
+      M : in     Plain_Text;
       K : in     Key) return int is
    begin
       return Crypto_onetimeauth_poly1305_tweet_verify(H, M, M'Length, K);
@@ -215,12 +216,12 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Secretbox
-     (C:     out CipherText;
-      M : in     PlainText;
+     (C:     out Cipher_Text;
+      M : in     Plain_Text;
       N : in     Nonce;
       K : in     Key)
    is
-      SMU : PlainText(M'First..M'Last+32);
+      SMU : Plain_Text(M'First..M'Last+32);
    begin
       SMU :=((0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)&M);
       if Crypto_secretbox_Xsalsa20poly1305_tweet(C, SMU, M'Length+32, N, K)/=0 then
@@ -230,12 +231,12 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Secretbox_Open
-     (M :    out PlainText;
-      C : in     CipherText;
+     (M :    out Plain_Text;
+      C : in     Cipher_Text;
       N : in     Nonce;
       K : in     Key)
     is
-      MU : PlainText(m'First..m'Last+32);
+      MU : Plain_Text(m'First..m'Last+32);
    begin
       if Crypto_secretbox_Xsalsa20poly1305_tweet_open(MU, C, C'Length, N,K)/=0 then
          raise Crypto_Error;
@@ -247,7 +248,7 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Stream_Xsalsa20
-     (C :    out CipherText;
+     (C :    out Cipher_Text;
       N : in     Nonce;
       K : in     Key)
    is
@@ -260,8 +261,8 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Stream_Xsalsa20_Xor
-     (C :    out CipherText;
-      M : in     PlainText;
+     (C :    out Cipher_Text;
+      M : in     Plain_Text;
       N : in     Nonce;
       K : in     Key) is
    begin
@@ -272,7 +273,7 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Stream_Salsa20
-     (C :    out CipherText;
+     (C :    out Cipher_Text;
       N : in     Nonce;
       K : in     Key)
    is
@@ -285,8 +286,8 @@ pacKage body TweetNaCl_Interface is
 
 
    procedure Crypto_Stream_Salsa20_Xor
-     (C :    out CipherText;
-      M : in     PlainText;
+     (C :    out Cipher_Text;
+      M : in     Plain_Text;
       N : in     Nonce;
       K : in     Key)  is
    begin
