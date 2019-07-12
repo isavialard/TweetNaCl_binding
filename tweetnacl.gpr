@@ -3,7 +3,7 @@ project Tweetnacl is
    for Languages use ("Ada", "C");
    for Source_Dirs use ("common", "test");
    for Object_Dir use "obj";
-   for Main use ("test.adb");
+   for Main use ("test4.adb");
 
    package Compiler is
       for Switches ("ada") use ("-gnata", "-gnatwa", "-gnaty3M79SabCdefhiklnprstux");

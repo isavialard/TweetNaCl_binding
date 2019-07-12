@@ -19,9 +19,10 @@ is
       SK : in     Key)
      with
        Pre => C'Length = SM'Length + BOX_BYTES
-         and then  Are_Box_Keys (SK, PK)
          and then Is_Signed (SM)
-         and then Never_Used_Yet (N);
+         and then Never_Used_Yet (N)
+         and then Is_Box_Secret_Key (SK)
+         and then Is_Box_Public_Key (PK);
    --  Encrypts and authenticates a signed message M using a nonce N and public
    --  and secret keys SK and PK and returns the corresponding cipher text X.
 
@@ -33,13 +34,16 @@ is
       SK : in     Key)
      with
        Pre => C'Length = SM'Length + BOX_BYTES
-         and then Are_Box_Keys (SK, PK);
+         and then Is_Box_Secret_Key (SK)
+         and then Is_Box_Public_Key (PK);
    --  Decrypt and Verify a  cipher text C using a nonce N and public and
    --  secret keys SK and PK, and returns the corresponding signed message SM.
 
    procedure Crypto_Box_Keypair (PK : out Key; SK : out Key)
      with
-       Post => Are_Box_Keys (SK, PK);
+       Post => Is_Box_Secret_Key (SK)
+         and then Is_Box_Public_Key (PK);
+
    --  generates a secret key SK and the corresponding public key PK to be used
    --  with Crypto_Box and Crypto_Box_Open.
 
@@ -84,8 +88,9 @@ is
       PK : in     Key;
       SK : in     Key)
      with
-       Pre => Are_Box_Keys (SK, PK),
-       Post => Is_Box_After_Key (K);
+       Pre => Is_Box_Secret_Key (SK)
+         and then Is_Box_Public_Key (PK),
+       Post => Is_Box_Shared_Key (K);
 
    procedure Crypto_Box_Afternm
      (C :    out Cipher_Text;
@@ -94,7 +99,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length + BOX_BYTES
-         and then Is_Box_After_Key (K)
+         and then Is_Box_Shared_Key (K)
          and then Is_Signed (M)
          and then Never_Used_Yet (N);
 
@@ -105,7 +110,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length + BOX_BYTES
-         and then Is_Box_After_Key (K);
+         and then Is_Box_Shared_Key (K);
 
    procedure Crypto_Core_Salsa20
      (ArgOut :    out Core_Out;
@@ -153,7 +158,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length + BOX_BYTES
-         and then Is_Box_After_Key (K)
+         and then Is_Box_Shared_Key (K)
          and then Is_Signed (M);
 
    procedure Crypto_Secretbox_Open
@@ -163,7 +168,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length + BOX_BYTES
-         and then Is_Box_After_Key (K),
+         and then Is_Box_Shared_Key (K),
        Post => Is_Signed (M);
 
    procedure Crypto_Stream_Xsalsa20
@@ -171,7 +176,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-       Pre => Is_Box_After_Key (K);
+       Pre => Is_Box_Shared_Key (K);
 
    procedure Crypto_Stream_Xsalsa20_Xor
      (C :    out Cipher_Text;
@@ -180,7 +185,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length
-         and then Is_Box_After_Key (K)
+         and then Is_Box_Shared_Key (K)
          and then Is_Signed (M);
 
    procedure Crypto_Stream_Salsa20
@@ -188,7 +193,7 @@ is
       N : in     Nonce;
       K : in     Key)
      with
-        Pre => Is_Box_After_Key (K);
+        Pre => Is_Box_Shared_Key (K);
 
    procedure Crypto_Stream_Salsa20_Xor
      (C :    out Cipher_Text;
@@ -197,7 +202,7 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length
-         and then Is_Box_After_Key (K)
+         and then Is_Box_Shared_Key (K)
          and then Is_Signed (M);
 
    function Crypto_Verify_16 (X : in Authenticator;
@@ -208,8 +213,9 @@ is
 
    --  Properties defined as ghost functions
 
-   function Are_Box_Keys   (SK : Key; PK : Key) return Boolean with Ghost;
-   function Is_Box_After_Key   (K : Key)        return Boolean with Ghost;
+   function Is_Box_Secret_Key  (K : Key)        return Boolean with Ghost;
+   function Is_Box_Public_Key  (K : Key)        return Boolean with Ghost;
+   function Is_Box_Shared_Key  (K : Key)        return Boolean with Ghost;
    function Is_Sign_Public_Key (K : Key)        return Boolean with Ghost;
    function Is_Sign_Secret_Key (K : Key64)      return Boolean with Ghost;
    function Is_Signed          (M : Plain_Text) return Boolean with Ghost;
@@ -221,11 +227,12 @@ private
    --  Properties are intentionally hidden from SPARK analysis under SPARK_Mode
    --  Off. This ensures that proof considers them as black boxes.
 
-   function Are_Box_Keys     (SK : Key; PK : Key) return Boolean is (True);
-   function Is_Box_After_Key     (K : Key)        return Boolean is (True);
-   function Is_Sign_Public_Key   (K : Key)        return Boolean is (True);
-   function Is_Sign_Secret_Key   (K : Key64)      return Boolean is (True);
-   function Is_Signed            (M : Plain_Text) return Boolean is (True);
-   function Never_Used_Yet       (N : Nonce)      return Boolean is (True);
+   function Is_Box_Secret_Key  (K : Key)        return Boolean is (True);
+   function Is_Box_Public_Key  (K : Key)        return Boolean is (True);
+   function Is_Box_Shared_Key  (K : Key)        return Boolean is (True);
+   function Is_Sign_Public_Key (K : Key)        return Boolean is (True);
+   function Is_Sign_Secret_Key (K : Key64)      return Boolean is (True);
+   function Is_Signed          (M : Plain_Text) return Boolean is (True);
+   function Never_Used_Yet     (N : Nonce)      return Boolean is (True);
 
 end TweetNaCl_Interface;
