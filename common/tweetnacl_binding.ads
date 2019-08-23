@@ -10,15 +10,15 @@ package TweetNaCl_Binding is
    type u8 is mod 2 ** 8;
    type u64 is range -2 ** 63 .. +2 ** 63 - 1;
    
-   KEY_BYTES : constant := 32;
+   KEY_BYTES             : constant := 32;
    SIGN_SECRET_KEY_BYTES : constant := 64;
-   NONCE_BYTES : constant := 24;
-   CORE_IN_BYTES : constant := 16;
-   CORE_OUT_BYTES : constant := 64;
-   AUTHENTICATOR_BYTES : constant := 16;
-   TEXT_MAX_SIZE : constant := 1000;
-   SIGN_BYTES : constant := 64;
-   BOX_BYTES : constant := 32;
+   NONCE_BYTES           : constant := 24;
+   CORE_IN_BYTES         : constant := 16;
+   CORE_OUT_BYTES        : constant := 64;
+   AUTHENTICATOR_BYTES   : constant := 16;
+   TEXT_MAX_SIZE         : constant := 1000;
+   SIGN_BYTES            : constant := 64;
+   BOX_BYTES             : constant := 32;
    
    
   

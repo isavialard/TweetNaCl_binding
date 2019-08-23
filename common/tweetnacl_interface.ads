@@ -35,7 +35,9 @@ is
      with
        Pre => C'Length = SM'Length + BOX_BYTES
          and then Is_Box_Secret_Key (SK)
-         and then Is_Box_Public_Key (PK);
+         and then Is_Box_Public_Key (PK),
+       Post => Is_Signed (SM);
+
    --  Decrypt and Verify a  cipher text C using a nonce N and public and
    --  secret keys SK and PK, and returns the corresponding signed message SM.
 
@@ -64,7 +66,9 @@ is
       PK : in     Key)
      with
        Pre => M'Length = SM'Length - SIGN_BYTES
-          and then Is_Sign_Public_Key (PK);
+          and then Is_Sign_Public_Key (PK)
+          and then Is_Signed (SM);
+
    --  verifies the signature in SM using the signer's public key PK and
    --  returns the initial message M.
 
@@ -110,7 +114,8 @@ is
       K : in     Key)
      with
        Pre => C'Length = M'Length + BOX_BYTES
-         and then Is_Box_Shared_Key (K);
+          and then Is_Box_Shared_Key (K),
+       Post => Is_Signed (M);
 
    procedure Crypto_Core_Salsa20
      (ArgOut :    out Core_Out;
@@ -135,14 +140,12 @@ is
    procedure Crypto_Onetimeauth
      (ArgOut :    out Authenticator;
       M      : in     Plain_Text;
-      K      : in     Key)
-     with Pre => Is_Signed (M);
+      K      : in     Key);
 
    function Crypto_Onetimeauth_Verify
      (H : in Authenticator;
       M : in Plain_Text;
-      K : in Key) return int
-     with Pre => Is_Signed (M);
+      K : in Key) return int;
 
    procedure Crypto_Scalarmult
      (Q :    out Key;
